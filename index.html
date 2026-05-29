@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carnavalito</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="svgStage" class="svg-stage" aria-label="Infografía Carnavalito interactiva">
+    <img id="mainSvg" src="assets/Carnavalito.svg" alt="Infografía Carnavalito" draggable="false">
+    <div id="ambientEffects" class="ambient-effects" aria-hidden="true"></div>
+    <div id="graphEffects" class="graph-effects" aria-hidden="true"></div>
+    <div id="textBoxEffects" class="text-box-effects" aria-hidden="true"></div>
+    <div id="hotspots" class="hotspots" aria-label="Puntos de información"></div>
+  </div>
+
+  <div id="sourceModal" class="source-modal" aria-hidden="true">
+    <div class="source-backdrop" data-close-modal></div>
+    <section class="source-card" role="dialog" aria-modal="true" aria-describedby="sourceText">
+      <button class="source-close" type="button" aria-label="Cerrar" data-close-modal>×</button>
+      <p id="sourceText"></p>
+    </section>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
