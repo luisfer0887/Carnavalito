@@ -31,7 +31,7 @@ const infoHotspots = [
   - Cada bloque corresponde a un icono de informacion, en orden de arriba hacia abajo en el SVG.
   - Para cambiar una fuente, edita solamente el valor de text: "...".
   - Usa \n dentro del texto cuando quieras hacer un salto de linea.
-  - El archivo assets/Fuentes.pdf queda incluido solo como respaldo/consulta.
+  - En esta version para GitHub no se incluye el PDF; las fuentes estan escritas aqui.
 */
 
 const sources = [
@@ -184,6 +184,19 @@ const graphPoints = [
 
 
 
+
+const reelVideo = {
+  // Cambia esta ruta si tu archivo tiene otro nombre.
+  // Ejemplo: "assets/mi-video.mp4"
+  src: "assets/video.mp4",
+  poster: "",
+  x: 452.13,
+  y: 516.15,
+  width: 297.57,
+  height: 529.02,
+  radius: 17.74,
+};
+
 const textBoxes = [
   { x: 452.13, y: 516.15, width: 297.57, height: 529.02, radius: 17.74 },
   { x: 32.36, y: 1151.42, width: 749.30, height: 524.00, radius: 20.00 },
@@ -238,6 +251,45 @@ const toLeft = (x) => `${(x / SVG_SIZE.width) * 100}%`;
 const toTop = (y) => `${(y / SVG_SIZE.height) * 100}%`;
 const toWidth = (width) => `${(width / SVG_SIZE.width) * 100}%`;
 const toHeight = (height) => `${(height / SVG_SIZE.height) * 100}%`;
+
+
+function renderVideoLayer() {
+  const container = document.getElementById("videoLayer");
+  if (!container || !reelVideo.src) return;
+
+  const card = document.createElement("div");
+  card.className = "reel-video-card";
+  card.style.left = toLeft(reelVideo.x);
+  card.style.top = toTop(reelVideo.y);
+  card.style.width = toWidth(reelVideo.width);
+  card.style.height = toHeight(reelVideo.height);
+  card.style.setProperty("--video-radius", `${reelVideo.radius}px`);
+
+  const video = document.createElement("video");
+  video.className = "reel-video";
+  video.src = reelVideo.src;
+  video.controls = true;
+  video.playsInline = true;
+  video.preload = "metadata";
+  video.setAttribute("controlsList", "nodownload");
+  video.setAttribute("aria-label", "Video del proyecto");
+
+  if (reelVideo.poster) {
+    video.poster = reelVideo.poster;
+  }
+
+  const hint = document.createElement("span");
+  hint.className = "reel-video-hint";
+  hint.textContent = "Toca para reproducir";
+
+  video.addEventListener("play", () => card.classList.add("is-playing"));
+  video.addEventListener("pause", () => card.classList.remove("is-playing"));
+  video.addEventListener("ended", () => card.classList.remove("is-playing"));
+
+  card.appendChild(video);
+  card.appendChild(hint);
+  container.appendChild(card);
+}
 
 function renderHotspots() {
   const container = document.getElementById("hotspots");
@@ -443,6 +495,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderAmbientEffects();
+renderVideoLayer();
 renderHotspots();
 renderGraphEffects();
 renderTextBoxEffects();
