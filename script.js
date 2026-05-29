@@ -1,4 +1,4 @@
-const SVG_SIZE = {
+let SVG_SIZE = {
   width: 818.83,
   height: 14466.88,
 };
@@ -522,9 +522,47 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-renderAmbientEffects();
-renderVideoLayer();
-renderForegroundCharacters();
-renderHotspots();
-renderGraphEffects();
-renderTextBoxEffects();
+async function syncSvgMetrics() {
+  const stage = document.getElementById("svgStage");
+  const mainSvg = document.getElementById("mainSvg");
+  const fallback = { ...SVG_SIZE };
+
+  // El proyecto usa coordenadas del SVG. Si en el futuro el SVG cambia de viewBox,
+  // esta funcion intenta leerlo y actualizar el tamano base automaticamente.
+  try {
+    const src = mainSvg?.getAttribute("src");
+    if (!src) return;
+
+    const response = await fetch(src, { cache: "no-store" });
+    if (!response.ok) return;
+
+    const svgText = await response.text();
+    const viewBoxMatch = svgText.match(/viewBox=["']\s*([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\s*["']/i);
+
+    if (viewBoxMatch) {
+      const width = Number.parseFloat(viewBoxMatch[3]);
+      const height = Number.parseFloat(viewBoxMatch[4]);
+
+      if (Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0) {
+        SVG_SIZE = { width, height };
+      }
+    }
+  } catch (error) {
+    SVG_SIZE = fallback;
+  } finally {
+    stage?.style.setProperty("--svg-w", SVG_SIZE.width);
+    stage?.style.setProperty("--svg-h", SVG_SIZE.height);
+  }
+}
+
+async function initPage() {
+  await syncSvgMetrics();
+  renderAmbientEffects();
+  renderVideoLayer();
+  renderForegroundCharacters();
+  renderHotspots();
+  renderGraphEffects();
+  renderTextBoxEffects();
+}
+
+initPage();
