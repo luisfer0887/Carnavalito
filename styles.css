@@ -1174,3 +1174,16 @@ body {
   28% { opacity: 1; }
   100% { opacity: 0; transform: translateX(42%) rotate(10deg); }
 }
+
+/* Ajuste final: las fotos ahora van sobre el SVG sin imágenes, alineadas a los cuadros de texto. */
+.timeline-photo-card {
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  outline: 0;
+}
+
+.timeline-photo {
+  object-fit: cover;
+  object-position: center center;
+}
