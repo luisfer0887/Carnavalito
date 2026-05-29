@@ -1037,21 +1037,21 @@ body {
 }
 
 .timeline-toggle::before {
-  inset: 18%;
-  background: rgba(174, 49, 119, 0.55);
-  box-shadow:
-    0 0 0 0 rgba(252, 244, 231, 0.18),
-    0 0 18px rgba(174, 49, 119, 0.42);
-  transform: scale(0.74);
+  /* Sin relleno amarillo: solo un halo sutil centrado sobre el punto morado del SVG. */
+  inset: 12%;
+  background: rgba(174, 49, 119, 0.10);
+  border: 2px solid rgba(252, 244, 231, 0.70);
+  box-shadow: 0 0 18px rgba(174, 49, 119, 0.38);
+  transform: scale(0.82);
   opacity: 0;
-  transition: opacity 240ms ease, transform 240ms ease, background 240ms ease;
+  transition: opacity 220ms ease, transform 220ms ease, box-shadow 220ms ease;
 }
 
 .timeline-toggle::after {
-  inset: 0;
-  border: 2px solid rgba(252, 244, 231, 0.72);
+  inset: -4%;
+  border: 2px solid rgba(252, 244, 231, 0.42);
   opacity: 0;
-  transform: scale(0.62);
+  transform: scale(0.72);
   transition: opacity 240ms ease, transform 240ms ease;
 }
 
@@ -1060,18 +1060,17 @@ body {
 .timeline-toggle.is-active::before {
   opacity: 1;
   transform: scale(1);
-  background: rgba(252, 198, 48, 0.72);
+  background: rgba(174, 49, 119, 0.18);
   box-shadow:
-    0 0 0 7px rgba(252, 244, 231, 0.09),
-    0 0 24px rgba(252, 198, 48, 0.54),
-    0 0 36px rgba(174, 49, 119, 0.34);
+    0 0 0 6px rgba(252, 244, 231, 0.08),
+    0 0 22px rgba(174, 49, 119, 0.50);
 }
 
 .timeline-toggle:hover::after,
 .timeline-toggle:focus-visible::after,
 .timeline-toggle.is-active::after {
   opacity: 1;
-  transform: scale(1.22);
+  transform: scale(1.10);
 }
 
 .timeline-toggle.is-active::after {
