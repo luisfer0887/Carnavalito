@@ -243,44 +243,31 @@ body {
 
 .proposal-map-card {
   position: absolute;
-  pointer-events: auto;
+  pointer-events: none;
   overflow: hidden;
-  border-radius: clamp(16px, 2.1vw, 34px);
-  padding: clamp(9px, 1.35vw, 20px);
+  border-radius: clamp(10px, 1.8vw, 22px);
+  padding: clamp(8px, 1.15vw, 16px);
   background:
-    radial-gradient(circle at 50% 8%, rgba(236, 102, 138, 0.22), transparent 42%),
-    linear-gradient(150deg, rgba(74, 12, 39, 0.98), rgba(95, 20, 47, 0.98));
-  border: clamp(4px, 0.9vw, 14px) solid rgba(184, 50, 128, 0.96);
+    radial-gradient(circle at 50% 0%, rgba(236, 102, 138, 0.13), transparent 45%),
+    linear-gradient(150deg, rgba(79, 14, 43, 0.97), rgba(92, 20, 51, 0.96));
+  border: 0;
   color: var(--cream);
-  box-shadow:
-    0 16px 36px rgba(0, 0, 0, 0.22),
-    inset 0 0 28px rgba(236, 102, 138, 0.16),
-    0 0 28px rgba(236, 102, 138, 0.20);
+  box-shadow: none;
+  opacity: 0;
   transform: translateZ(0);
-  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+  transition: opacity 220ms ease;
 }
 
 .proposal-map-card::before {
-  content: "";
-  position: absolute;
-  inset: -40% -80%;
-  background: linear-gradient(110deg, transparent 35%, rgba(252, 244, 231, 0.16), transparent 65%);
-  transform: translateX(-38%) rotate(10deg);
-  opacity: 0;
-  pointer-events: none;
+  content: none;
 }
 
 .proposal-map-card.has-selection {
-  transform: translateY(-4px) scale(1.012);
-  border-color: rgba(236, 102, 138, 1);
-  box-shadow:
-    0 22px 46px rgba(0, 0, 0, 0.26),
-    inset 0 0 36px rgba(236, 102, 138, 0.20),
-    0 0 38px rgba(236, 102, 138, 0.36);
+  opacity: 1;
 }
 
 .proposal-map-card.has-selection::before {
-  animation: proposalSheen 880ms ease-out both;
+  animation: none;
 }
 
 .proposal-empty {
@@ -313,8 +300,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(5px, 0.65vw, 11px);
+  gap: clamp(4px, 0.5vw, 9px);
   min-width: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
   animation: proposalCardIn 300ms ease both;
 }
 
@@ -326,7 +315,7 @@ body {
   background: rgba(252, 198, 48, 0.92);
   color: #4b0f1a;
   font-weight: 900;
-  font-size: clamp(0.46rem, 0.95vw, 0.82rem);
+  font-size: clamp(0.38rem, 0.75vw, 0.68rem);
   line-height: 1.1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -338,8 +327,8 @@ body {
 .proposal-title {
   margin: 0;
   color: var(--cream);
-  font-size: clamp(0.56rem, 1.25vw, 1.08rem);
-  line-height: 1.03;
+  font-size: clamp(0.44rem, 0.96vw, 0.86rem);
+  line-height: 1.06;
   font-weight: 950;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -349,7 +338,7 @@ body {
 .proposal-name {
   margin: 0;
   color: rgba(252, 244, 231, 0.88);
-  font-size: clamp(0.46rem, 0.98vw, 0.86rem);
+  font-size: clamp(0.36rem, 0.74vw, 0.68rem);
   line-height: 1.22;
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -359,14 +348,14 @@ body {
   margin: 0;
   padding-top: 0.25em;
   color: rgba(252, 244, 231, 0.62);
-  font-size: clamp(0.38rem, 0.78vw, 0.72rem);
-  line-height: 1.18;
+  font-size: clamp(0.32rem, 0.62vw, 0.58rem);
+  line-height: 1.16;
 }
 
 .proposal-map-point {
   position: absolute;
-  width: clamp(26px, 3.6vw, 50px);
-  height: clamp(26px, 3.6vw, 50px);
+  width: clamp(34px, 4.6vw, 72px);
+  height: clamp(34px, 4.6vw, 72px);
   border: 0;
   border-radius: 999px;
   background: transparent;
@@ -387,12 +376,12 @@ body {
 }
 
 .proposal-map-point::before {
-  inset: 11%;
-  background: rgba(252, 244, 231, 0.10);
-  border: 2px solid rgba(252, 244, 231, 0.72);
+  inset: 13%;
+  background: rgba(252, 244, 231, 0.03);
+  border: 2px solid rgba(252, 244, 231, 0.88);
   box-shadow:
-    0 0 0 0 var(--proposal-glow, rgba(236, 102, 138, 0.44)),
-    0 0 18px var(--proposal-glow, rgba(236, 102, 138, 0.38));
+    0 0 0 0 var(--proposal-glow, rgba(236, 102, 138, 0.36)),
+    0 0 16px var(--proposal-glow, rgba(236, 102, 138, 0.32));
   opacity: 0;
   transform: scale(0.62);
   transition: opacity 220ms ease, transform 220ms ease, box-shadow 220ms ease;
@@ -422,21 +411,13 @@ body {
 }
 
 .proposal-map-dot {
-  width: 38%;
-  height: 38%;
-  border-radius: inherit;
-  background: var(--proposal-color, #ec668a);
-  box-shadow: 0 0 18px var(--proposal-glow, rgba(236, 102, 138, 0.45));
-  opacity: 0;
-  transform: scale(0.72);
-  transition: opacity 220ms ease, transform 220ms ease;
+  display: none;
 }
 
 .proposal-map-point:hover .proposal-map-dot,
 .proposal-map-point:focus-visible .proposal-map-dot,
 .proposal-map-point.is-active .proposal-map-dot {
-  opacity: 0.62;
-  transform: scale(1);
+  display: none;
 }
 
 

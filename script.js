@@ -441,10 +441,12 @@ const proposalParticipants = [
 ];
 
 const proposalMapPanel = {
-  x: 74.8,
-  y: 11622.8,
-  width: 166.8,
-  height: 175.8,
+  // Esta caja NO dibuja un nuevo marco. Solo cubre el interior oscuro
+  // del cuadro morado que ya existe en el SVG para que no se vea duplicado.
+  x: 93.0,
+  y: 11728.0,
+  width: 130.0,
+  height: 141.0,
 };
 
 const modalityColors = {
@@ -457,16 +459,18 @@ const modalityColors = {
 };
 
 const proposalMapPoints = [
-  { id: "punto-01", x: 616, y: 11606, participantIndex: 0 },
-  { id: "punto-02", x: 438, y: 11625, participantIndex: 5 },
-  { id: "punto-03", x: 593, y: 11650, participantIndex: 11 },
-  { id: "punto-04", x: 522, y: 11661, participantIndex: 16 },
-  { id: "punto-05", x: 389, y: 11686, participantIndex: 20 },
-  { id: "punto-06", x: 451, y: 11708, participantIndex: 24 },
-  { id: "punto-07", x: 487, y: 11725, participantIndex: 30 },
-  { id: "punto-08", x: 557, y: 11743, participantIndex: 33 },
-  { id: "punto-09", x: 426, y: 11778, participantIndex: 39 },
-  { id: "punto-10", x: 510, y: 11819, participantIndex: 44 },
+  // Coordenadas ajustadas al SVG nuevo.
+  // Cada punto es un area transparente encima del icono visible del mapa.
+  { id: "punto-01", x: 616, y: 11685, participantIndex: 0 },
+  { id: "punto-02", x: 438, y: 11708, participantIndex: 5 },
+  { id: "punto-03", x: 592, y: 11732, participantIndex: 11 },
+  { id: "punto-04", x: 521, y: 11744, participantIndex: 16 },
+  { id: "punto-05", x: 391, y: 11768, participantIndex: 20 },
+  { id: "punto-06", x: 450, y: 11792, participantIndex: 24 },
+  { id: "punto-07", x: 485, y: 11804, participantIndex: 30 },
+  { id: "punto-08", x: 556, y: 11827, participantIndex: 33 },
+  { id: "punto-09", x: 427, y: 11862, participantIndex: 39 },
+  { id: "punto-10", x: 509, y: 11910, participantIndex: 44 },
 ];
 
 const textBoxes = [
@@ -633,13 +637,10 @@ function renderProposalMapLayer() {
 }
 
 function renderProposalEmpty(card) {
+  // El SVG ya trae el mensaje inicial. Dejamos esta capa vacia
+  // para no duplicar el cuadro morado ni el texto de ayuda.
   card.classList.remove("has-selection");
-  card.innerHTML = `
-    <div class="proposal-empty">
-      <span class="proposal-empty-icon" aria-hidden="true">⌖</span>
-      <span>Selecciona un participante en el mapa para ver los detalles de su propuesta.</span>
-    </div>
-  `;
+  card.innerHTML = "";
 }
 
 function renderProposalDetail(card, participant) {
