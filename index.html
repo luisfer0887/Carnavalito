@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Carnavalito</title>
+  <link rel="preload" href="assets/Carnavalito.svg" as="image" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,6 +18,8 @@
     <div id="mapInteractionLayer" class="map-interaction-layer" aria-label="Mapa de propuestas inscritas"></div>
     <div id="hotspots" class="hotspots" aria-label="Puntos de información"></div>
   </div>
+
+  <div id="mobileProposalSheet" class="mobile-proposal-sheet" aria-live="polite" aria-hidden="true"></div>
 
   <div id="sourceModal" class="source-modal" aria-hidden="true">
     <div class="source-backdrop" data-close-modal></div>

@@ -3,6 +3,8 @@ let SVG_SIZE = {
   height: 14466.88,
 };
 
+const PERFORMANCE_MODE = window.matchMedia("(max-width: 760px), (prefers-reduced-motion: reduce)").matches || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+
 const infoHotspots = [
   { x: 769.85, y: 1654.88 },
   { x: 769.85, y: 2077.68 },
@@ -189,7 +191,7 @@ const reelVideo = {
   // Cambia esta ruta si tu archivo tiene otro nombre.
   // Ejemplo: "assets/mi-video.mp4"
   src: "assets/video.mp4",
-  poster: "",
+  poster: "assets/video-poster.jpg",
   x: 452.13,
   y: 516.15,
   width: 297.57,
@@ -546,7 +548,7 @@ function renderVideoLayer() {
   video.src = reelVideo.src;
   video.controls = true;
   video.playsInline = true;
-  video.preload = "metadata";
+  video.preload = PERFORMANCE_MODE ? "none" : "metadata";
   video.setAttribute("controlsList", "nodownload");
   video.setAttribute("aria-label", "Video del proyecto");
 
@@ -652,9 +654,33 @@ function renderProposalDetail(card, participant) {
       <span class="proposal-kicker">${escapeHtml(participant.modalidad)}</span>
       <h3 class="proposal-title">${escapeHtml(participant.propuesta)}</h3>
       <p class="proposal-name">${escapeHtml(participant.institucion)}</p>
-      <p class="proposal-note">Información tomada del listado de participantes 2026.</p>
+      <p class="proposal-note">Listado de participantes 2026</p>
     </article>
   `;
+
+  renderMobileProposalDetail(participant);
+}
+
+function renderMobileProposalDetail(participant) {
+  const sheet = document.getElementById("mobileProposalSheet");
+  if (!sheet || !participant) return;
+
+  sheet.classList.add("is-open");
+  sheet.setAttribute("aria-hidden", "false");
+  sheet.innerHTML = `
+    <section class="mobile-proposal-card" role="dialog" aria-label="Detalle de propuesta seleccionada">
+      <button class="mobile-proposal-close" type="button" aria-label="Cerrar detalle">×</button>
+      <span class="proposal-kicker">${escapeHtml(participant.modalidad)}</span>
+      <h3 class="proposal-title">${escapeHtml(participant.propuesta)}</h3>
+      <p class="proposal-name">${escapeHtml(participant.institucion)}</p>
+      <p class="proposal-note">Información tomada del listado de participantes 2026.</p>
+    </section>
+  `;
+
+  sheet.querySelector(".mobile-proposal-close")?.addEventListener("click", () => {
+    sheet.classList.remove("is-open");
+    sheet.setAttribute("aria-hidden", "true");
+  });
 }
 
 function escapeHtml(value) {
@@ -880,7 +906,7 @@ async function syncSvgMetrics() {
     const src = mainSvg?.getAttribute("src");
     if (!src) return;
 
-    const response = await fetch(src, { cache: "no-store" });
+    const response = await fetch(src, { cache: "force-cache" });
     if (!response.ok) return;
 
     const svgText = await response.text();
@@ -904,13 +930,16 @@ async function syncSvgMetrics() {
 
 async function initPage() {
   await syncSvgMetrics();
-  renderAmbientEffects();
   renderVideoLayer();
   renderForegroundCharacters();
   renderProposalMapLayer();
   renderHotspots();
-  renderGraphEffects();
-  renderTextBoxEffects();
+
+  if (!PERFORMANCE_MODE) {
+    renderAmbientEffects();
+    renderGraphEffects();
+    renderTextBoxEffects();
+  }
 }
 
 initPage();
