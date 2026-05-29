@@ -197,18 +197,6 @@ const reelVideo = {
   radius: 17.74,
 };
 
-// Esta capa vuelve a poner encima del video la ilustracion inferior del cuadro amarillo.
-// Si queda un poco corrida, ajusta x, y, width y height.
-const foregroundIllustrations = [
-  {
-    x: 430.00,
-    y: 895.00,
-    width: 352.00,
-    height: 170.00,
-    radius: 0,
-  },
-];
-
 const textBoxes = [
   { x: 452.13, y: 516.15, width: 297.57, height: 529.02, radius: 17.74 },
   { x: 32.36, y: 1151.42, width: 749.30, height: 524.00, radius: 20.00 },
@@ -301,32 +289,6 @@ function renderVideoLayer() {
   card.appendChild(video);
   card.appendChild(hint);
   container.appendChild(card);
-}
-
-function renderForegroundIllustrations() {
-  const container = document.getElementById("videoForegroundLayer");
-  const mainSvg = document.getElementById("mainSvg");
-  if (!container || !mainSvg || !foregroundIllustrations.length) return;
-
-  foregroundIllustrations.forEach((area) => {
-    const crop = document.createElement("div");
-    crop.className = "video-foreground-crop";
-
-    const top = (area.y / SVG_SIZE.height) * 100;
-    const left = (area.x / SVG_SIZE.width) * 100;
-    const right = 100 - ((area.x + area.width) / SVG_SIZE.width) * 100;
-    const bottom = 100 - ((area.y + area.height) / SVG_SIZE.height) * 100;
-
-    crop.style.clipPath = `inset(${top}% ${right}% ${bottom}% ${left}% round ${area.radius || 0}px)`;
-
-    const image = document.createElement("img");
-    image.src = mainSvg.currentSrc || mainSvg.src;
-    image.alt = "";
-    image.draggable = false;
-
-    crop.appendChild(image);
-    container.appendChild(crop);
-  });
 }
 
 function renderHotspots() {
