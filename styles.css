@@ -78,6 +78,7 @@ body {
 .text-box-effects,
 .video-layer,
 .video-foreground-layer,
+.map-interaction-layer,
 .ambient-effects {
   position: absolute;
   inset: 0;
@@ -231,6 +232,213 @@ body {
 .reel-video-card.is-playing .reel-video-hint {
   opacity: 0;
 }
+
+
+.map-interaction-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+}
+
+.proposal-map-card {
+  position: absolute;
+  pointer-events: auto;
+  overflow: hidden;
+  border-radius: clamp(16px, 2.1vw, 34px);
+  padding: clamp(9px, 1.35vw, 20px);
+  background:
+    radial-gradient(circle at 50% 8%, rgba(236, 102, 138, 0.22), transparent 42%),
+    linear-gradient(150deg, rgba(74, 12, 39, 0.98), rgba(95, 20, 47, 0.98));
+  border: clamp(4px, 0.9vw, 14px) solid rgba(184, 50, 128, 0.96);
+  color: var(--cream);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.22),
+    inset 0 0 28px rgba(236, 102, 138, 0.16),
+    0 0 28px rgba(236, 102, 138, 0.20);
+  transform: translateZ(0);
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.proposal-map-card::before {
+  content: "";
+  position: absolute;
+  inset: -40% -80%;
+  background: linear-gradient(110deg, transparent 35%, rgba(252, 244, 231, 0.16), transparent 65%);
+  transform: translateX(-38%) rotate(10deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.proposal-map-card.has-selection {
+  transform: translateY(-4px) scale(1.012);
+  border-color: rgba(236, 102, 138, 1);
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.26),
+    inset 0 0 36px rgba(236, 102, 138, 0.20),
+    0 0 38px rgba(236, 102, 138, 0.36);
+}
+
+.proposal-map-card.has-selection::before {
+  animation: proposalSheen 880ms ease-out both;
+}
+
+.proposal-empty {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  gap: 0.65em;
+  text-align: center;
+  color: rgba(252, 244, 231, 0.68);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  font-weight: 800;
+  font-size: clamp(0.45rem, 1.05vw, 0.95rem);
+  line-height: 1.45;
+}
+
+.proposal-empty-icon {
+  width: clamp(34px, 6.2vw, 76px);
+  height: clamp(34px, 6.2vw, 76px);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: rgba(252, 244, 231, 0.48);
+  background: rgba(236, 102, 138, 0.13);
+  box-shadow: inset 0 0 0 2px rgba(252, 244, 231, 0.08);
+}
+
+.proposal-detail {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(5px, 0.65vw, 11px);
+  min-width: 0;
+  animation: proposalCardIn 300ms ease both;
+}
+
+.proposal-kicker {
+  align-self: flex-start;
+  max-width: 100%;
+  padding: 0.28em 0.72em;
+  border-radius: 999px;
+  background: rgba(252, 198, 48, 0.92);
+  color: #4b0f1a;
+  font-weight: 900;
+  font-size: clamp(0.46rem, 0.95vw, 0.82rem);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.proposal-title {
+  margin: 0;
+  color: var(--cream);
+  font-size: clamp(0.56rem, 1.25vw, 1.08rem);
+  line-height: 1.03;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.proposal-name {
+  margin: 0;
+  color: rgba(252, 244, 231, 0.88);
+  font-size: clamp(0.46rem, 0.98vw, 0.86rem);
+  line-height: 1.22;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.proposal-note {
+  margin: 0;
+  padding-top: 0.25em;
+  color: rgba(252, 244, 231, 0.62);
+  font-size: clamp(0.38rem, 0.78vw, 0.72rem);
+  line-height: 1.18;
+}
+
+.proposal-map-point {
+  position: absolute;
+  width: clamp(26px, 3.6vw, 50px);
+  height: clamp(26px, 3.6vw, 50px);
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  outline: none;
+}
+
+.proposal-map-point::before,
+.proposal-map-point::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.proposal-map-point::before {
+  inset: 11%;
+  background: rgba(252, 244, 231, 0.10);
+  border: 2px solid rgba(252, 244, 231, 0.72);
+  box-shadow:
+    0 0 0 0 var(--proposal-glow, rgba(236, 102, 138, 0.44)),
+    0 0 18px var(--proposal-glow, rgba(236, 102, 138, 0.38));
+  opacity: 0;
+  transform: scale(0.62);
+  transition: opacity 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+
+.proposal-map-point::after {
+  inset: -12%;
+  border: 2px solid var(--proposal-glow, rgba(236, 102, 138, 0.45));
+  opacity: 0;
+  transform: scale(0.76);
+}
+
+.proposal-map-point:hover::before,
+.proposal-map-point:focus-visible::before,
+.proposal-map-point.is-active::before {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow:
+    0 0 0 8px rgba(252, 244, 231, 0.08),
+    0 0 22px var(--proposal-glow, rgba(236, 102, 138, 0.55));
+}
+
+.proposal-map-point:hover::after,
+.proposal-map-point:focus-visible::after,
+.proposal-map-point.is-active::after {
+  animation: proposalPulse 1.25s ease-out infinite;
+}
+
+.proposal-map-dot {
+  width: 38%;
+  height: 38%;
+  border-radius: inherit;
+  background: var(--proposal-color, #ec668a);
+  box-shadow: 0 0 18px var(--proposal-glow, rgba(236, 102, 138, 0.45));
+  opacity: 0;
+  transform: scale(0.72);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.proposal-map-point:hover .proposal-map-dot,
+.proposal-map-point:focus-visible .proposal-map-dot,
+.proposal-map-point.is-active .proposal-map-dot {
+  opacity: 0.62;
+  transform: scale(1);
+}
+
 
 .hotspots {
   z-index: 6;
@@ -760,4 +968,21 @@ body {
   user-select: none;
   z-index: 1;
   filter: drop-shadow(0 10px 16px rgba(75, 15, 26, 0.18));
+}
+
+
+@keyframes proposalPulse {
+  0% { opacity: 0.7; transform: scale(0.82); }
+  100% { opacity: 0; transform: scale(1.55); }
+}
+
+@keyframes proposalCardIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes proposalSheen {
+  0% { opacity: 0; transform: translateX(-50%) rotate(10deg); }
+  28% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(42%) rotate(10deg); }
 }

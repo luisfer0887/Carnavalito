@@ -207,6 +207,268 @@ const foregroundCharacters = {
   height: 380.00,
 };
 
+
+
+// Datos del mapa de propuestas.
+// La informacion viene del PDF de Participantes 2026 y queda escrita aqui para que la pagina sea estatica.
+// Para ampliar el mapa: agrega mas participantes a proposalParticipants y mas puntos a proposalMapPoints.
+const proposalParticipants = [
+  {
+    "institucion": "FUNDACIÓN CULTURAL COMPAZ PASTO",
+    "propuesta": "INTI AWKI - HEREDEROS DEL SOL",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "INSTITUTO CHAMPAGNAT",
+    "propuesta": "CHAMBU \"EL SENTIDO DE LA TIERRA\"",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "FUNDACIÓN GRUPO FACTOR FILOTIMO",
+    "propuesta": "WARMI KAWSAY QUILLA - \"LA LUNA QUE CURA CON PLANTAS\"",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "FUNDACIÓN ILLARY",
+    "propuesta": "RURALIDAD MÍSTICA",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "FUNDACIÓN ILLARY",
+    "propuesta": "\"PASTO\" Y SU CORSO DE FLORES",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "FUNDACIÓN GUARDIANES DEL CARNAVAL",
+    "propuesta": "ECOS DE UNA TRADICIÓN: MOCONDINO Y SUS SANTOS REYES",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "FUNDACIÓN GUARDIANES DEL CARNAVAL",
+    "propuesta": "LA GRAN MASCARADA",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "FUNDACIÓN CULTURAL INDOAMERICANTICO",
+    "propuesta": "ESPÍRITUS GUARDIANES",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "FUNDACIÓN CULTURAL MUSURUNAKUNA HOMBRES NUEVOS",
+    "propuesta": "LOS TITANES DEL CARNAVALITO 2026",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "I.E.M MERCEDARIO",
+    "propuesta": "LA MUJER MULA",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "I.E.M NUESTRA SEÑORA DE GUADALUPE",
+    "propuesta": "EL CHURO CÓSMICO EN EL CARNAVALITO",
+    "modalidad": "MURGUITA"
+  },
+  {
+    "institucion": "I.E.M LUIS DELFIN INSUASTY RODRIGUEZ",
+    "propuesta": "KUYAY MUNAY \"EL ENCANTO DE LA LAGUNA DE LA COCHA\" LLUVIA DE ESTRELLAS",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "COLEGIO NUESTRA SEÑORA DEL CARMEN",
+    "propuesta": "JUBILEO DE COLORES \"UN CANTO A LA UNIDAD\"",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "FUNDACIÓN MARIA VALENTINA",
+    "propuesta": "ILLAQ RUNA (PORTADORES DE LUZ)",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "FUNDACIÓN CULTURAL SUR MESTIZO",
+    "propuesta": "AIRES DE AMANECER",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "FUNDACIÓN CULTURAL GUAGÜITAS DEL VOLCAN",
+    "propuesta": "GUARDIANES DEL CAMPO: ALEGRÍA Y TRADICIÓN",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "I.E.M TECNICO INDUSTRIAL",
+    "propuesta": "LA NATURALEZA NUESTRO HOGAR",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "FUNDACIÓN CULTURAL TEMPO",
+    "propuesta": "PACHAK: UN SIGLO DE HISTORIA, JUEGO E IDENTIDAD",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "COLEGIO SAN FRANCISCO JAVIER - COMPAÑÍA DE JESUS",
+    "propuesta": "SAN JUAN DE PASTO: FIESTA Y ALEGRÍA MULTICULTURAL \"FACHADAS DE CARNAVAL\"",
+    "modalidad": "DISFRAZ INDIVIDUAL"
+  },
+  {
+    "institucion": "COLEGIO SAN FRANCISCO JAVIER - COMPAÑÍA DE JESUS",
+    "propuesta": "FACHADAS DE CARNAVAL",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "COLEGIO SAN FRANCISCO JAVIER - COMPAÑÍA DE JESUS",
+    "propuesta": "FACHADAS DE CARNAVAL",
+    "modalidad": "COLECTIVO COREOGRÁFICO"
+  },
+  {
+    "institucion": "JULIETTA EVANGELYN DELGADO ERASO",
+    "propuesta": "MADERAL ENTRE ARTE Y CARNAVAL",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "SAMUEL ALEJANDRO NOGUERA ROJAS",
+    "propuesta": "FIESTA Y DEVOCIÓN EN MI TIERRA CARNAVALERA",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "NELSON ALEJANDRO RIASCOS ERAZO",
+    "propuesta": "CELESTE Y EL BAILE DE LAS MARIPOSAS",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "DANNA AILYN RUANO CHAMORRO",
+    "propuesta": "LA CASA DE MICKEY MOUSE",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "JUAN PABLO BOTINA GUZMAN",
+    "propuesta": "VIVIENDO MI SUEÑO",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "ANGELA MANUELA BENAVIDES SUAREZ",
+    "propuesta": "PUKLLAY JUKU - EL JUEGO DEL BÚHO",
+    "modalidad": "DISFRAZ INDIVIDUAL"
+  },
+  {
+    "institucion": "LUCIANA DE LA ROSA ARCE",
+    "propuesta": "MIMI - UN AMOR ENTRE LAS AGUAS DEL PACIFICO",
+    "modalidad": "DISFRAZ INDIVIDUAL"
+  },
+  {
+    "institucion": "LAURA VALERIA BOLAÑOS VASQUEZ",
+    "propuesta": "AMERICA INDIA",
+    "modalidad": "MURGUITA"
+  },
+  {
+    "institucion": "ANTONIA SARABHI ZARAMA BOLAÑOS",
+    "propuesta": "MANDALAS DE VIDA",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "KEVIN FERNANDO VITERI MELO",
+    "propuesta": "TRASCENDENCIA",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "ISAAC MATHIAS GALINDEZ SANTANDER",
+    "propuesta": "UN LADRON DE SONRISAS",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "AMAITE TAUTAS EGAS QUINDE",
+    "propuesta": "TEJEDOR DE VIDA",
+    "modalidad": "DISFRAZ INDIVIDUAL"
+  },
+  {
+    "institucion": "SANTHIAGO ALEJANDRO ESCOBAR VALLEJO",
+    "propuesta": "NUESTRA FIESTA, NUESTRO FUTURO",
+    "modalidad": "MURGUITA"
+  },
+  {
+    "institucion": "MARIA CAMILA BENAVIDES CASTRO",
+    "propuesta": "GUANEÑA MUJER GUERRERA",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "ABBY ALEJANDRA GOYES JOJOA - ISABELLA SOFIA GOYES JOJOA",
+    "propuesta": "LAS GUAGUAS DE MI PUEBLO",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "JOAQUIN ALEJANDRO MEDINA ROSERO",
+    "propuesta": "JUGANDO SUEÑOS",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "VIOLETA RODRIGUEZ TAPIA",
+    "propuesta": "SUEÑO ANDINO",
+    "modalidad": "DISFRAZ INDIVIDUAL"
+  },
+  {
+    "institucion": "SAMUEL ALEJANDRO GONZALEZ BURBANO",
+    "propuesta": "PACHA MAMA",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "MARYANGEL BOTINA CORTEZ",
+    "propuesta": "MASCOTICAS EN EL CARNAVAL",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "HELEN SAMAY PUPIALES JIMENEZ",
+    "propuesta": "EL ARADO OBONUQUEÑO",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "GAEL BENAVIDES",
+    "propuesta": "SPEEDY RODANDO EN EL CARNAVAL",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "SARITA FERNANDA ESTACIO ESPAÑA",
+    "propuesta": "DESDE EL MAR HASTA EL GALERAS, DONDE LA TIERRA Y EL AGUA CELEBRAN LA ABUNDANCIA",
+    "modalidad": "COMPARSITA"
+  },
+  {
+    "institucion": "ELIAN DAVID MORAN ESTRELLA",
+    "propuesta": "EL CONDOR SUBE EL TAPIZ DE RETAZOS, UN VUELO POR EL CARNAVALITO",
+    "modalidad": "CARROCITA"
+  },
+  {
+    "institucion": "LAURA SOFIA ORDOÑEZ GUERRERO",
+    "propuesta": "ALFAREROS DE NARIÑO",
+    "modalidad": "COMPARSITA"
+  }
+];
+
+const proposalMapPanel = {
+  x: 74.8,
+  y: 11622.8,
+  width: 166.8,
+  height: 175.8,
+};
+
+const modalityColors = {
+  "COLECTIVO COREOGRÁFICO": { color: "#ec668a", glow: "rgba(236, 102, 138, 0.58)" },
+  "COMPARSITA": { color: "#f29a35", glow: "rgba(242, 154, 53, 0.58)" },
+  "CARROCITA": { color: "#fcc630", glow: "rgba(252, 198, 48, 0.58)" },
+  "MURGUITA": { color: "#5b86c4", glow: "rgba(91, 134, 196, 0.58)" },
+  "DISFRAZ INDIVIDUAL": { color: "#8a62bd", glow: "rgba(138, 98, 189, 0.58)" },
+  default: { color: "#1ca1a0", glow: "rgba(28, 161, 160, 0.58)" },
+};
+
+const proposalMapPoints = [
+  { id: "punto-01", x: 616, y: 11606, participantIndex: 0 },
+  { id: "punto-02", x: 438, y: 11625, participantIndex: 5 },
+  { id: "punto-03", x: 593, y: 11650, participantIndex: 11 },
+  { id: "punto-04", x: 522, y: 11661, participantIndex: 16 },
+  { id: "punto-05", x: 389, y: 11686, participantIndex: 20 },
+  { id: "punto-06", x: 451, y: 11708, participantIndex: 24 },
+  { id: "punto-07", x: 487, y: 11725, participantIndex: 30 },
+  { id: "punto-08", x: 557, y: 11743, participantIndex: 33 },
+  { id: "punto-09", x: 426, y: 11778, participantIndex: 39 },
+  { id: "punto-10", x: 510, y: 11819, participantIndex: 44 },
+];
+
 const textBoxes = [
   { x: 452.13, y: 516.15, width: 297.57, height: 529.02, radius: 17.74 },
   { x: 32.36, y: 1151.42, width: 749.30, height: 524.00, radius: 20.00 },
@@ -318,6 +580,90 @@ function renderForegroundCharacters() {
   container.appendChild(image);
 }
 
+
+
+function getModalityStyle(modality) {
+  return modalityColors[modality] || modalityColors.default;
+}
+
+function renderProposalMapLayer() {
+  const container = document.getElementById("mapInteractionLayer");
+  if (!container) return;
+
+  const card = document.createElement("section");
+  card.className = "proposal-map-card";
+  card.setAttribute("aria-live", "polite");
+  card.style.left = toLeft(proposalMapPanel.x);
+  card.style.top = toTop(proposalMapPanel.y);
+  card.style.width = toWidth(proposalMapPanel.width);
+  card.style.height = toHeight(proposalMapPanel.height);
+  container.appendChild(card);
+
+  renderProposalEmpty(card);
+
+  const fragment = document.createDocumentFragment();
+  proposalMapPoints.forEach((point, index) => {
+    const participant = proposalParticipants[point.participantIndex];
+    const style = getModalityStyle(participant?.modalidad);
+    const button = document.createElement("button");
+    const dot = document.createElement("span");
+
+    button.type = "button";
+    button.className = "proposal-map-point";
+    button.style.left = toLeft(point.x);
+    button.style.top = toTop(point.y);
+    button.style.setProperty("--proposal-color", style.color);
+    button.style.setProperty("--proposal-glow", style.glow);
+    button.setAttribute("aria-label", participant ? `Ver propuesta: ${participant.propuesta}` : `Ver propuesta ${index + 1}`);
+    button.dataset.participantIndex = String(point.participantIndex);
+
+    dot.className = "proposal-map-dot";
+    button.appendChild(dot);
+
+    button.addEventListener("click", () => {
+      container.querySelectorAll(".proposal-map-point.is-active").forEach((item) => item.classList.remove("is-active"));
+      button.classList.add("is-active");
+      renderProposalDetail(card, participant);
+    });
+
+    fragment.appendChild(button);
+  });
+
+  container.appendChild(fragment);
+}
+
+function renderProposalEmpty(card) {
+  card.classList.remove("has-selection");
+  card.innerHTML = `
+    <div class="proposal-empty">
+      <span class="proposal-empty-icon" aria-hidden="true">⌖</span>
+      <span>Selecciona un participante en el mapa para ver los detalles de su propuesta.</span>
+    </div>
+  `;
+}
+
+function renderProposalDetail(card, participant) {
+  if (!participant) return;
+
+  card.classList.add("has-selection");
+  card.innerHTML = `
+    <article class="proposal-detail">
+      <span class="proposal-kicker">${escapeHtml(participant.modalidad)}</span>
+      <h3 class="proposal-title">${escapeHtml(participant.propuesta)}</h3>
+      <p class="proposal-name">${escapeHtml(participant.institucion)}</p>
+      <p class="proposal-note">Información tomada del listado de participantes 2026.</p>
+    </article>
+  `;
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
 function renderHotspots() {
   const container = document.getElementById("hotspots");
@@ -560,6 +906,7 @@ async function initPage() {
   renderAmbientEffects();
   renderVideoLayer();
   renderForegroundCharacters();
+  renderProposalMapLayer();
   renderHotspots();
   renderGraphEffects();
   renderTextBoxEffects();
