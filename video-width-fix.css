@@ -1,0 +1,87 @@
+/*
+  Parche puntual:
+  1) Vuelve la infografia a ancho completo en todos los dispositivos.
+  2) Quita el marco/fondo agregado en escritorio.
+  3) Oculta controles nativos del video para que solo funcione clic/tap: reproducir / pausar.
+  No toca assets, mapa, linea de tiempo ni fuentes.
+*/
+
+html,
+body {
+  width: 100% !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: var(--dark, #4b0f1a) !important;
+  overflow-x: hidden !important;
+}
+
+body {
+  max-width: none !important;
+}
+
+body::before,
+body::after {
+  display: none !important;
+  content: none !important;
+}
+
+#svgStage.svg-stage,
+.svg-stage {
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  border: 0 !important;
+}
+
+@media (min-width: 900px) {
+  body {
+    padding: 0 !important;
+  }
+
+  #svgStage.svg-stage,
+  .svg-stage {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+.reel-video-card {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.reel-video {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.reel-video-hint {
+  display: none !important;
+}
+
+.reel-video::-webkit-media-controls,
+.reel-video::-webkit-media-controls-enclosure,
+.reel-video::-webkit-media-controls-panel,
+.reel-video::-webkit-media-controls-play-button,
+.reel-video::-webkit-media-controls-timeline,
+.reel-video::-webkit-media-controls-current-time-display,
+.reel-video::-webkit-media-controls-time-remaining-display,
+.reel-video::-webkit-media-controls-mute-button,
+.reel-video::-webkit-media-controls-volume-slider,
+.reel-video::-webkit-media-controls-fullscreen-button,
+.reel-video::-webkit-media-controls-overflow-button {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

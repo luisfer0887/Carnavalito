@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Carnavalito</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="video-width-fix.css">
 </head>
 <body>
   <div id="svgStage" class="svg-stage" aria-label="Infografía Carnavalito interactiva">
-    <img id="mainSvg" src="assets/Carnavalito.svg" alt="Infografía Carnavalito" draggable="false">
+    <img id="mainSvg" src="assets/Carnavalito.svg" alt="Infografía Carnavalito" draggable="false" loading="eager" decoding="async">
     <div id="ambientEffects" class="ambient-effects" aria-hidden="true"></div>
     <div id="graphEffects" class="graph-effects" aria-hidden="true"></div>
     <div id="textBoxEffects" class="text-box-effects" aria-hidden="true"></div>
@@ -21,6 +22,8 @@
 
   <div id="proposalMobileSheet" class="proposal-mobile-sheet" aria-live="polite" aria-hidden="true"></div>
 
+  <button id="backToTop" class="back-to-top" type="button" aria-label="Volver al inicio">↑</button>
+
   <div id="sourceModal" class="source-modal" aria-hidden="true">
     <div class="source-backdrop" data-close-modal></div>
     <section class="source-card" role="dialog" aria-modal="true" aria-describedby="sourceText">
@@ -30,5 +33,6 @@
   </div>
 
   <script src="script.js" defer></script>
+  <script src="video-width-fix.js" defer></script>
 </body>
 </html>

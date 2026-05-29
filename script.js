@@ -200,11 +200,12 @@ const reelVideo = {
 // Esta capa pone por encima del video a los personajes del cajon amarillo.
 // Si queda un poco corrida, ajusta x, y, width y height.
 const foregroundCharacters = {
-  src: "assets/personajes-video-overlay.png",
-  x: 410.00,
-  y: 760.00,
-  width: 390.00,
-  height: 380.00,
+  // Usamos el SVG que pasaste, sin modificarlo ni extraerlo de ningun lado.
+  src: "assets/personajes_1.svg",
+  // Ubicado en la parte inferior y centrado del cajon amarillo, encima del video.
+  x: 426.00,
+  y: 906.00,
+  width: 400.00,
 };
 
 
@@ -825,8 +826,40 @@ function triggerRipple(button) {
 
 function renderGraphEffects() {
   const container = document.getElementById("graphEffects");
+  if (!container) return;
+
   const fragment = document.createDocumentFragment();
   const center = graphPoints.find((point) => point.type === "ring") || graphPoints[0];
+  const restLineY = 3294;
+  const activationArea = {
+    x: 218,
+    y: 3005,
+    width: 372,
+    height: 330,
+  };
+
+  const activateGraph = () => {
+    if (container.classList.contains("is-awake")) return;
+
+    container.classList.add("is-awake");
+    container.querySelectorAll("[data-final-left]").forEach((item) => {
+      item.style.left = item.dataset.finalLeft;
+      item.style.top = item.dataset.finalTop;
+    });
+  };
+
+  const activationButton = document.createElement("button");
+  activationButton.type = "button";
+  activationButton.className = "graph-activation-zone";
+  activationButton.setAttribute("aria-label", "Activar gráfica de experiencia");
+  activationButton.style.left = toLeft(activationArea.x);
+  activationButton.style.top = toTop(activationArea.y);
+  activationButton.style.width = toWidth(activationArea.width);
+  activationButton.style.height = toHeight(activationArea.height);
+  activationButton.addEventListener("click", activateGraph);
+  activationButton.addEventListener("pointerenter", activateGraph);
+  activationButton.addEventListener("focus", activateGraph);
+  fragment.appendChild(activationButton);
 
   graphPoints
     .filter((point) => point.type === "pink")
@@ -851,10 +884,17 @@ function renderGraphEffects() {
     const item = document.createElement("span");
     const moveX = ((index % 5) - 2) * 6.2;
     const moveY = (((index * 2) % 7) - 3) * 5.8;
+    const finalLeft = toLeft(point.x);
+    const finalTop = toTop(point.y);
+    const fallenSpread = point.type === "yellow" ? ((index % 13) - 6) * 2.15 : ((index % 7) - 3) * 1.25;
+    const restX = point.type === "ring" || point.type === "core" ? center.x : point.x + fallenSpread;
 
-    item.style.left = toLeft(point.x);
-    item.style.top = toTop(point.y);
+    item.style.left = toLeft(restX);
+    item.style.top = toTop(restLineY);
+    item.dataset.finalLeft = finalLeft;
+    item.dataset.finalTop = finalTop;
     item.style.animationDelay = `${(index % 11) * 0.12}s`;
+    item.style.transitionDelay = `${Math.min(index * 0.018, 0.72)}s`;
     item.style.setProperty("--move-x", `${moveX}px`);
     item.style.setProperty("--move-y", `${moveY}px`);
     item.style.setProperty("--move-x-small", `${moveX * -0.45}px`);
@@ -873,6 +913,23 @@ function renderGraphEffects() {
   });
 
   container.appendChild(fragment);
+}
+
+function initBackToTopButton() {
+  const button = document.getElementById("backToTop");
+  if (!button) return;
+
+  const toggleButton = () => {
+    const shouldShow = window.scrollY > Math.min(window.innerHeight * 0.75, 760);
+    button.classList.toggle("is-visible", shouldShow);
+  };
+
+  button.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", toggleButton, { passive: true });
+  toggleButton();
 }
 
 function renderAmbientEffects() {
@@ -1015,49 +1072,51 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-async function syncSvgMetrics() {
+function applySvgDisplayMetrics(metrics) {
   const stage = document.getElementById("svgStage");
   const mainSvg = document.getElementById("mainSvg");
-  const fallback = { ...SVG_SIZE };
+  if (!stage || !mainSvg) return;
 
-  // El proyecto usa coordenadas del SVG. Si en el futuro el SVG cambia de viewBox,
-  // esta funcion intenta leerlo y actualizar el tamano base automaticamente.
-  try {
-    const src = mainSvg?.getAttribute("src");
-    if (!src) return;
+  SVG_SIZE = { width: metrics.activeWidth, height: metrics.activeHeight };
+  stage.style.setProperty("--svg-w", SVG_SIZE.width);
+  stage.style.setProperty("--svg-h", SVG_SIZE.height);
 
-    const response = await fetch(src, { cache: "no-store" });
-    if (!response.ok) return;
+  mainSvg.style.left = `${-(metrics.cropX / metrics.activeWidth) * 100}%`;
+  mainSvg.style.top = `${-(metrics.cropY / metrics.activeHeight) * 100}%`;
+  mainSvg.style.width = `${(metrics.rawWidth / metrics.activeWidth) * 100}%`;
+  mainSvg.style.height = `${(metrics.rawHeight / metrics.activeHeight) * 100}%`;
+}
 
-    const svgText = await response.text();
-    const viewBoxMatch = svgText.match(/viewBox=["']\s*([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\s*["']/i);
-
-    if (viewBoxMatch) {
-      const width = Number.parseFloat(viewBoxMatch[3]);
-      const height = Number.parseFloat(viewBoxMatch[4]);
-
-      if (Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0) {
-        SVG_SIZE = { width, height };
-      }
-    }
-  } catch (error) {
-    SVG_SIZE = fallback;
-  } finally {
-    stage?.style.setProperty("--svg-w", SVG_SIZE.width);
-    stage?.style.setProperty("--svg-h", SVG_SIZE.height);
-  }
+function syncSvgMetrics() {
+  // Este proyecto usa el SVG nuevo exportado con un viewBox grande.
+  // NO se modifica el SVG: solo se recorta visualmente por CSS para mostrar el area real.
+  // Esto evita volver a leer el SVG completo por fetch y mejora el tiempo de carga.
+  applySvgDisplayMetrics({
+    rawWidth: 3113.15,
+    rawHeight: 16332.15,
+    activeWidth: 818.38,
+    activeHeight: 14465.87,
+    cropX: 351.16,
+    cropY: 56.80,
+  });
 }
 
 async function initPage() {
-  await syncSvgMetrics();
-  renderAmbientEffects();
+  syncSvgMetrics();
+  const isSmallScreen = window.matchMedia("(max-width: 700px)").matches;
+
+  if (!isSmallScreen) {
+    renderAmbientEffects();
+    renderTextBoxEffects();
+  }
+
+  renderGraphEffects();
   renderVideoLayer();
   renderForegroundCharacters();
   renderProposalMapLayer();
   renderTimelineLayer();
   renderHotspots();
-  renderGraphEffects();
-  renderTextBoxEffects();
+  initBackToTopButton();
 }
 
 initPage();
