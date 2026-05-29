@@ -441,12 +441,12 @@ const proposalParticipants = [
 ];
 
 const proposalMapPanel = {
-  // Esta capa queda sobre el interior oscuro del cuadro del SVG.
+  // Esta capa queda exactamente sobre el interior oscuro del cuadro del SVG.
   // No dibuja marco nuevo: solo tapa el mensaje inicial para escribir encima.
-  x: 68.0,
-  y: 11731.0,
-  width: 148.0,
-  height: 128.0,
+  x: 90.0,
+  y: 11718.0,
+  width: 134.0,
+  height: 141.0,
 };
 
 const modalityColors = {
@@ -478,7 +478,7 @@ const timelineItems = [
     id: "timeline-1926",
     label: "1926",
     src: "assets/timeline/foto1.jpeg",
-    image: { x: 450, y: 13057, width: 252, height: 164, radius: 14 },
+    image: { x: 450, y: 13058, width: 252, height: 164, radius: 14 },
     trigger: { x: 399, y: 13135 },
   },
   {
@@ -506,14 +506,14 @@ const timelineItems = [
     id: "timeline-1966",
     label: "1966",
     src: "assets/timeline/foto5.jpeg",
-    image: { x: 450, y: 13994, width: 252, height: 164, radius: 14 },
+    image: { x: 450, y: 13998, width: 252, height: 164, radius: 14 },
     trigger: { x: 399, y: 14065 },
   },
   {
     id: "timeline-modernidad",
     label: "Modernidad",
     src: "assets/timeline/foto6.jpeg",
-    image: { x: 98, y: 14192, width: 252, height: 164, radius: 14 },
+    image: { x: 98, y: 14200, width: 252, height: 164, radius: 14 },
     trigger: { x: 399, y: 14263 },
   },
 ];
@@ -718,7 +718,11 @@ function renderMobileProposalDetail(participant) {
   `;
 
   const close = sheet.querySelector(".proposal-mobile-close");
-  close?.addEventListener("click", closeMobileProposalSheet, { once: true });
+  close?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeMobileProposalSheet();
+  });
 }
 
 function closeMobileProposalSheet() {
@@ -981,9 +985,26 @@ function closeSource() {
 }
 
 document.addEventListener("click", (event) => {
+  const mobileClose = event.target.closest?.(".proposal-mobile-close");
+  if (mobileClose) {
+    event.preventDefault();
+    event.stopPropagation();
+    closeMobileProposalSheet();
+    return;
+  }
+
   if (event.target.matches("[data-close-modal]")) {
     closeSource();
   }
+});
+
+document.addEventListener("pointerup", (event) => {
+  const mobileClose = event.target.closest?.(".proposal-mobile-close");
+  if (!mobileClose) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+  closeMobileProposalSheet();
 });
 
 document.addEventListener("keydown", (event) => {

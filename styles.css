@@ -246,9 +246,9 @@ body {
   position: absolute;
   pointer-events: none;
   overflow: hidden;
-  border-radius: 13%;
-  padding: clamp(7px, 1.05vw, 13px);
-  background: rgb(94, 24, 54);
+  border-radius: 18px;
+  padding: clamp(8px, 0.95vw, 12px);
+  background: #5e1836;
   border: 0;
   color: var(--cream);
   box-shadow: none;
@@ -299,7 +299,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(4px, 0.5vw, 9px);
+  gap: clamp(4px, 0.45vw, 8px);
   min-width: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -327,7 +327,7 @@ body {
 .proposal-title {
   margin: 0;
   color: var(--cream);
-  font-size: clamp(0.44rem, 0.96vw, 0.86rem);
+  font-size: clamp(0.42rem, 0.86vw, 0.78rem);
   line-height: 1.06;
   font-weight: 950;
   letter-spacing: 0.02em;
@@ -338,7 +338,7 @@ body {
 .proposal-name {
   margin: 0;
   color: rgba(252, 244, 231, 0.88);
-  font-size: clamp(0.36rem, 0.74vw, 0.68rem);
+  font-size: clamp(0.35rem, 0.68vw, 0.62rem);
   line-height: 1.22;
   font-weight: 700;
   overflow-wrap: anywhere;
@@ -933,6 +933,11 @@ body {
 /* --- Mobile proposal sheet outside the huge SVG stage --- */
 .proposal-mobile-sheet {
   display: none;
+  pointer-events: auto;
+}
+
+.proposal-mobile-sheet * {
+  pointer-events: auto;
 }
 
 .proposal-mobile-close {
@@ -948,6 +953,8 @@ body {
   font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
+  z-index: 3;
+  touch-action: manipulation;
 }
 
 .proposal-mobile-close:focus-visible {
@@ -965,13 +972,12 @@ body {
 
 .timeline-photo-card {
   position: absolute;
+  margin: 0;
   overflow: hidden;
   border-radius: var(--timeline-radius, 16px);
   pointer-events: none;
   background: #23151a;
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.18),
-    inset 0 0 0 1px rgba(252, 244, 231, 0.16);
+  box-shadow: none;
   isolation: isolate;
 }
 
@@ -995,13 +1001,13 @@ body {
   height: 100%;
   object-fit: cover;
   filter: grayscale(1) contrast(1.06) brightness(0.92);
-  transform: scale(1.01);
+  transform: scale(1);
   transition: filter 700ms ease, transform 700ms cubic-bezier(.2, .8, .2, 1), opacity 360ms ease;
 }
 
 .timeline-photo-card.is-color .timeline-photo {
   filter: grayscale(0) contrast(1.04) saturate(1.12) brightness(1.03);
-  transform: scale(1.045);
+  transform: scale(1.018);
 }
 
 .timeline-photo-card.is-color::after {
