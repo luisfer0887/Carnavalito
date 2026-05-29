@@ -441,11 +441,11 @@ const proposalParticipants = [
 ];
 
 const proposalMapPanel = {
-  // Esta caja NO dibuja un nuevo marco. Solo cubre el interior oscuro
-  // del cuadro morado que ya existe en el SVG para que no se vea duplicado.
-  x: 93.0,
-  y: 11728.0,
-  width: 130.0,
+  // Esta capa queda exactamente sobre el interior oscuro del cuadro del SVG.
+  // No dibuja un marco nuevo: solo tapa el texto inicial para escribir encima.
+  x: 90.0,
+  y: 11718.0,
+  width: 134.0,
   height: 141.0,
 };
 
@@ -652,7 +652,6 @@ function renderProposalDetail(card, participant) {
       <span class="proposal-kicker">${escapeHtml(participant.modalidad)}</span>
       <h3 class="proposal-title">${escapeHtml(participant.propuesta)}</h3>
       <p class="proposal-name">${escapeHtml(participant.institucion)}</p>
-      <p class="proposal-note">Información tomada del listado de participantes 2026.</p>
     </article>
   `;
 }
