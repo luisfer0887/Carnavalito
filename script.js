@@ -203,8 +203,8 @@ const foregroundCharacters = {
   src: "assets/personajes-video-overlay.png",
   x: 410.00,
   y: 760.00,
-  width: 390.00,
-  height: 380.00,
+  width: 290.00,
+  height: 280.00,
 };
 
 
