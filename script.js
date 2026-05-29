@@ -441,12 +441,12 @@ const proposalParticipants = [
 ];
 
 const proposalMapPanel = {
-  // Esta capa queda exactamente sobre el interior oscuro del cuadro del SVG.
-  // No dibuja un marco nuevo: solo tapa el texto inicial para escribir encima.
-  x: 90.0,
-  y: 11718.0,
-  width: 134.0,
-  height: 141.0,
+  // Esta capa queda sobre el interior oscuro del cuadro del SVG.
+  // No dibuja marco nuevo: solo tapa el mensaje inicial para escribir encima.
+  x: 68.0,
+  y: 11731.0,
+  width: 148.0,
+  height: 128.0,
 };
 
 const modalityColors = {
@@ -471,6 +471,51 @@ const proposalMapPoints = [
   { id: "punto-08", x: 556, y: 11827, participantIndex: 33 },
   { id: "punto-09", x: 427, y: 11862, participantIndex: 39 },
   { id: "punto-10", x: 509, y: 11910, participantIndex: 44 },
+];
+
+const timelineItems = [
+  {
+    id: "timeline-1926",
+    label: "1926",
+    src: "assets/timeline/foto1.jpeg",
+    image: { x: 450, y: 13057, width: 252, height: 164, radius: 14 },
+    trigger: { x: 399, y: 13135 },
+  },
+  {
+    id: "timeline-1950-a",
+    label: "1950",
+    src: "assets/timeline/foto2.jpeg",
+    image: { x: 98, y: 13293, width: 252, height: 164, radius: 14 },
+    trigger: { x: 399, y: 13365 },
+  },
+  {
+    id: "timeline-1926-b",
+    label: "1926",
+    src: "assets/timeline/foto3.jpeg",
+    image: { x: 450, y: 13536, width: 252, height: 164, radius: 14 },
+    trigger: { x: 399, y: 13598 },
+  },
+  {
+    id: "timeline-1950-b",
+    label: "1950",
+    src: "assets/timeline/foto4.jpeg",
+    image: { x: 98, y: 13754, width: 252, height: 164, radius: 14 },
+    trigger: { x: 399, y: 13834 },
+  },
+  {
+    id: "timeline-1966",
+    label: "1966",
+    src: "assets/timeline/foto5.jpeg",
+    image: { x: 450, y: 13994, width: 252, height: 164, radius: 14 },
+    trigger: { x: 399, y: 14065 },
+  },
+  {
+    id: "timeline-modernidad",
+    label: "Modernidad",
+    src: "assets/timeline/foto6.jpeg",
+    image: { x: 98, y: 14192, width: 252, height: 164, radius: 14 },
+    trigger: { x: 399, y: 14263 },
+  },
 ];
 
 const textBoxes = [
@@ -628,6 +673,7 @@ function renderProposalMapLayer() {
       container.querySelectorAll(".proposal-map-point.is-active").forEach((item) => item.classList.remove("is-active"));
       button.classList.add("is-active");
       renderProposalDetail(card, participant);
+      renderMobileProposalDetail(participant);
     });
 
     fragment.appendChild(button);
@@ -654,6 +700,84 @@ function renderProposalDetail(card, participant) {
       <p class="proposal-name">${escapeHtml(participant.institucion)}</p>
     </article>
   `;
+}
+
+function renderMobileProposalDetail(participant) {
+  const sheet = document.getElementById("proposalMobileSheet");
+  if (!sheet || !participant) return;
+
+  sheet.classList.add("is-open");
+  sheet.setAttribute("aria-hidden", "false");
+  sheet.innerHTML = `
+    <button class="proposal-mobile-close" type="button" aria-label="Cerrar información">×</button>
+    <article class="proposal-detail">
+      <span class="proposal-kicker">${escapeHtml(participant.modalidad)}</span>
+      <h3 class="proposal-title">${escapeHtml(participant.propuesta)}</h3>
+      <p class="proposal-name">${escapeHtml(participant.institucion)}</p>
+    </article>
+  `;
+
+  const close = sheet.querySelector(".proposal-mobile-close");
+  close?.addEventListener("click", closeMobileProposalSheet, { once: true });
+}
+
+function closeMobileProposalSheet() {
+  const sheet = document.getElementById("proposalMobileSheet");
+  if (!sheet) return;
+  sheet.classList.remove("is-open");
+  sheet.setAttribute("aria-hidden", "true");
+  sheet.innerHTML = "";
+}
+
+function renderTimelineLayer() {
+  const container = document.getElementById("timelineInteractionLayer");
+  if (!container) return;
+
+  const fragment = document.createDocumentFragment();
+
+  timelineItems.forEach((item, index) => {
+    const photoCard = document.createElement("figure");
+    photoCard.className = "timeline-photo-card";
+    photoCard.dataset.timelineId = item.id;
+    photoCard.style.left = toLeft(item.image.x);
+    photoCard.style.top = toTop(item.image.y);
+    photoCard.style.width = toWidth(item.image.width);
+    photoCard.style.height = toHeight(item.image.height);
+    photoCard.style.setProperty("--timeline-radius", `${item.image.radius}px`);
+
+    const image = document.createElement("img");
+    image.className = "timeline-photo";
+    image.src = item.src;
+    image.alt = `Imagen de la línea de tiempo ${item.label}`;
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.draggable = false;
+
+    photoCard.appendChild(image);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "timeline-toggle";
+    button.dataset.timelineId = item.id;
+    button.style.left = toLeft(item.trigger.x);
+    button.style.top = toTop(item.trigger.y);
+    button.setAttribute("aria-label", `Activar color en imagen ${item.label}`);
+    button.setAttribute("aria-pressed", "false");
+
+    button.addEventListener("click", () => {
+      const isActive = photoCard.classList.toggle("is-color");
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    button.addEventListener("mouseenter", () => photoCard.classList.add("is-preview"));
+    button.addEventListener("mouseleave", () => photoCard.classList.remove("is-preview"));
+
+    fragment.appendChild(photoCard);
+    fragment.appendChild(button);
+  });
+
+  container.appendChild(fragment);
 }
 
 function escapeHtml(value) {
@@ -865,6 +989,7 @@ document.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeSource();
+    closeMobileProposalSheet();
   }
 });
 
@@ -907,6 +1032,7 @@ async function initPage() {
   renderVideoLayer();
   renderForegroundCharacters();
   renderProposalMapLayer();
+  renderTimelineLayer();
   renderHotspots();
   renderGraphEffects();
   renderTextBoxEffects();

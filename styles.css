@@ -77,6 +77,7 @@ body {
 .graph-effects,
 .text-box-effects,
 .video-layer,
+.timeline-interaction-layer,
 .video-foreground-layer,
 .map-interaction-layer,
 .ambient-effects {
@@ -246,7 +247,7 @@ body {
   pointer-events: none;
   overflow: hidden;
   border-radius: 13%;
-  padding: clamp(8px, 1.25vw, 18px);
+  padding: clamp(7px, 1.05vw, 13px);
   background: rgb(94, 24, 54);
   border: 0;
   color: var(--cream);
@@ -927,50 +928,208 @@ body {
   }
 }
 
+
+
+/* --- Mobile proposal sheet outside the huge SVG stage --- */
+.proposal-mobile-sheet {
+  display: none;
+}
+
+.proposal-mobile-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(252, 244, 231, 0.14);
+  color: var(--cream);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.proposal-mobile-close:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+/* --- Timeline color reveal --- */
+.timeline-interaction-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.timeline-photo-card {
+  position: absolute;
+  overflow: hidden;
+  border-radius: var(--timeline-radius, 16px);
+  pointer-events: none;
+  background: #23151a;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.18),
+    inset 0 0 0 1px rgba(252, 244, 231, 0.16);
+  isolation: isolate;
+}
+
+.timeline-photo-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(252, 244, 231, 0.18), transparent 32%),
+    linear-gradient(110deg, transparent 0%, rgba(252, 244, 231, 0.18) 46%, transparent 58%);
+  opacity: 0;
+  transform: translateX(-70%);
+  transition: opacity 260ms ease, transform 720ms ease;
+}
+
+.timeline-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.06) brightness(0.92);
+  transform: scale(1.01);
+  transition: filter 700ms ease, transform 700ms cubic-bezier(.2, .8, .2, 1), opacity 360ms ease;
+}
+
+.timeline-photo-card.is-color .timeline-photo {
+  filter: grayscale(0) contrast(1.04) saturate(1.12) brightness(1.03);
+  transform: scale(1.045);
+}
+
+.timeline-photo-card.is-color::after {
+  opacity: 1;
+  transform: translateX(70%);
+}
+
+.timeline-toggle {
+  position: absolute;
+  width: clamp(30px, 4.6vw, 58px);
+  height: clamp(30px, 4.6vw, 58px);
+  border: 0;
+  border-radius: 999px;
+  pointer-events: auto;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  outline: none;
+}
+
+.timeline-toggle::before,
+.timeline-toggle::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.timeline-toggle::before {
+  inset: 18%;
+  background: rgba(174, 49, 119, 0.55);
+  box-shadow:
+    0 0 0 0 rgba(252, 244, 231, 0.18),
+    0 0 18px rgba(174, 49, 119, 0.42);
+  transform: scale(0.74);
+  opacity: 0;
+  transition: opacity 240ms ease, transform 240ms ease, background 240ms ease;
+}
+
+.timeline-toggle::after {
+  inset: 0;
+  border: 2px solid rgba(252, 244, 231, 0.72);
+  opacity: 0;
+  transform: scale(0.62);
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+
+.timeline-toggle:hover::before,
+.timeline-toggle:focus-visible::before,
+.timeline-toggle.is-active::before {
+  opacity: 1;
+  transform: scale(1);
+  background: rgba(252, 198, 48, 0.72);
+  box-shadow:
+    0 0 0 7px rgba(252, 244, 231, 0.09),
+    0 0 24px rgba(252, 198, 48, 0.54),
+    0 0 36px rgba(174, 49, 119, 0.34);
+}
+
+.timeline-toggle:hover::after,
+.timeline-toggle:focus-visible::after,
+.timeline-toggle.is-active::after {
+  opacity: 1;
+  transform: scale(1.22);
+}
+
+.timeline-toggle.is-active::after {
+  animation: timelinePulse 1.5s ease-out infinite;
+}
+
+@keyframes timelinePulse {
+  from {
+    opacity: 0.68;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.65);
+  }
+}
+
+
 @media (max-width: 700px) {
   .proposal-map-card.has-selection {
-    position: fixed;
-    left: 50% !important;
-    top: auto !important;
-    bottom: 14px !important;
-    width: min(92vw, 430px) !important;
-    height: auto !important;
-    max-height: 46vh;
-    transform: translateX(-50%);
-    z-index: 40;
-    pointer-events: auto;
-    border-radius: 22px;
-    padding: 18px;
-    background: rgb(94, 24, 54);
-    box-shadow:
-      0 18px 46px rgba(0, 0, 0, 0.42),
-      0 0 0 5px rgba(174, 49, 119, 0.96),
-      inset 0 0 0 1px rgba(252, 244, 231, 0.06);
+    opacity: 0;
+    pointer-events: none;
   }
 
-  .proposal-map-card.has-selection .proposal-detail {
-    justify-content: flex-start;
-    max-height: calc(46vh - 36px);
+  .proposal-mobile-sheet.is-open {
+    display: block;
+    position: fixed;
+    left: 50%;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    z-index: 9999;
+    width: min(92vw, 430px);
+    max-height: min(58vh, 420px);
+    transform: translateX(-50%);
+    padding: 18px 18px 16px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(111, 20, 57, 0.98), rgba(79, 18, 47, 0.98));
+    color: var(--cream);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.48), 0 0 0 5px rgba(236, 102, 138, 0.88), inset 0 0 0 1px rgba(252, 244, 231, 0.08);
+    overflow: hidden;
+  }
+
+  .proposal-mobile-sheet .proposal-detail {
+    max-height: calc(min(58vh, 420px) - 34px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding-right: 3px;
+    padding: 30px 4px 2px 0;
+    justify-content: flex-start;
   }
 
-  .proposal-map-card.has-selection .proposal-kicker {
+  .proposal-mobile-sheet .proposal-kicker {
     font-size: 0.72rem;
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
   }
 
-  .proposal-map-card.has-selection .proposal-title {
-    font-size: 1.05rem;
-    line-height: 1.1;
+  .proposal-mobile-sheet .proposal-title {
+    font-size: 1.12rem;
+    line-height: 1.12;
   }
 
-  .proposal-map-card.has-selection .proposal-name {
-    font-size: 0.86rem;
-    line-height: 1.22;
+  .proposal-mobile-sheet .proposal-name {
+    font-size: 0.9rem;
+    line-height: 1.25;
   }
 }
 
