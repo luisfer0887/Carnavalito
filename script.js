@@ -185,6 +185,26 @@ const graphPoints = [
 
 
 
+/*
+  AJUSTES DE LA GRAFICA DE EXPERIENCIA:
+  - Para mover toda la nube de puntos, cambia offsetX / offsetY.
+  - Para mover un punto especifico, cambia su x / y en graphPoints.
+  - restLineY controla la linea punteada desde donde los puntos "despiertan".
+  - animationStagger controla la separacion entre cada punto al subir.
+*/
+const graphControls = {
+  offsetX: 0,
+  offsetY: 0,
+  restLineY: 3294,
+  animationStagger: 0.055,
+  activationArea: {
+    x: 218,
+    y: 3005,
+    width: 372,
+    height: 330,
+  },
+};
+
 const reelVideo = {
   // Cambia esta ruta si tu archivo tiene otro nombre.
   // Ejemplo: "assets/mi-video.mp4"
@@ -829,14 +849,15 @@ function renderGraphEffects() {
   if (!container) return;
 
   const fragment = document.createDocumentFragment();
-  const center = graphPoints.find((point) => point.type === "ring") || graphPoints[0];
-  const restLineY = 3294;
-  const activationArea = {
-    x: 218,
-    y: 3005,
-    width: 372,
-    height: 330,
+  const rawCenter = graphPoints.find((point) => point.type === "ring") || graphPoints[0];
+  const pointX = (point) => point.x + graphControls.offsetX;
+  const pointY = (point) => point.y + graphControls.offsetY;
+  const center = {
+    x: pointX(rawCenter),
+    y: pointY(rawCenter),
   };
+  const restLineY = graphControls.restLineY;
+  const activationArea = graphControls.activationArea;
 
   const activateGraph = () => {
     if (container.classList.contains("is-awake")) return;
@@ -857,15 +878,21 @@ function renderGraphEffects() {
   activationButton.style.width = toWidth(activationArea.width);
   activationButton.style.height = toHeight(activationArea.height);
   activationButton.addEventListener("click", activateGraph);
-  activationButton.addEventListener("pointerenter", activateGraph);
-  activationButton.addEventListener("focus", activateGraph);
+  activationButton.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      activateGraph();
+    }
+  });
   fragment.appendChild(activationButton);
 
   graphPoints
     .filter((point) => point.type === "pink")
     .forEach((point, index) => {
-      const dx = point.x - center.x;
-      const dy = point.y - center.y;
+      const finalX = pointX(point);
+      const finalY = pointY(point);
+      const dx = finalX - center.x;
+      const dy = finalY - center.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
       const angle = Math.atan2(dy, dx) * (180 / Math.PI);
       const line = document.createElement("span");
@@ -875,31 +902,34 @@ function renderGraphEffects() {
       line.style.top = toTop(center.y);
       line.style.width = toWidth(distance);
       line.style.transform = `translateY(-50%) rotate(${angle}deg)`;
-      line.style.animationDelay = `${index * 0.18}s`;
-      line.style.setProperty("--line-speed", `${3.2 + (index % 4) * 0.35}s`);
+      line.style.animationDelay = `${0.8 + index * 0.16}s`;
+      line.style.transitionDelay = `${0.55 + index * 0.045}s`;
+      line.style.setProperty("--line-speed", `${4.2 + (index % 4) * 0.42}s`);
       fragment.appendChild(line);
     });
 
   graphPoints.forEach((point, index) => {
     const item = document.createElement("span");
-    const moveX = ((index % 5) - 2) * 6.2;
-    const moveY = (((index * 2) % 7) - 3) * 5.8;
-    const finalLeft = toLeft(point.x);
-    const finalTop = toTop(point.y);
+    const moveX = ((index % 5) - 2) * 5.2;
+    const moveY = (((index * 2) % 7) - 3) * 4.8;
+    const finalX = pointX(point);
+    const finalY = pointY(point);
+    const finalLeft = toLeft(finalX);
+    const finalTop = toTop(finalY);
     const fallenSpread = point.type === "yellow" ? ((index % 13) - 6) * 2.15 : ((index % 7) - 3) * 1.25;
-    const restX = point.type === "ring" || point.type === "core" ? center.x : point.x + fallenSpread;
+    const restX = point.type === "ring" || point.type === "core" ? center.x : finalX + fallenSpread;
 
     item.style.left = toLeft(restX);
     item.style.top = toTop(restLineY);
     item.dataset.finalLeft = finalLeft;
     item.dataset.finalTop = finalTop;
-    item.style.animationDelay = `${(index % 11) * 0.12}s`;
-    item.style.transitionDelay = `${Math.min(index * 0.018, 0.72)}s`;
+    item.style.animationDelay = `${0.25 + (index % 11) * 0.14}s`;
+    item.style.transitionDelay = `${Math.min(index * graphControls.animationStagger, 1.55)}s`;
     item.style.setProperty("--move-x", `${moveX}px`);
     item.style.setProperty("--move-y", `${moveY}px`);
     item.style.setProperty("--move-x-small", `${moveX * -0.45}px`);
     item.style.setProperty("--move-y-small", `${moveY * -0.45}px`);
-    item.style.setProperty("--dot-speed", `${2.35 + (index % 6) * 0.24}s`);
+    item.style.setProperty("--dot-speed", `${3.15 + (index % 6) * 0.32}s`);
 
     if (point.type === "ring") {
       item.className = "graph-ring";

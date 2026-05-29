@@ -1249,13 +1249,19 @@ body {
 .graph-core,
 .graph-dot {
   transition:
-    left 960ms cubic-bezier(.16, .9, .24, 1),
-    top 960ms cubic-bezier(.16, .9, .24, 1),
-    opacity 380ms ease,
-    filter 520ms ease,
-    background 520ms ease,
-    box-shadow 520ms ease,
-    transform 960ms cubic-bezier(.16, .9, .24, 1);
+    left 1900ms cubic-bezier(.18, .82, .18, 1),
+    top 1900ms cubic-bezier(.18, .82, .18, 1),
+    opacity 780ms ease,
+    filter 960ms ease,
+    background 960ms ease,
+    box-shadow 960ms ease,
+    transform 1900ms cubic-bezier(.18, .82, .18, 1);
+}
+
+.graph-line {
+  transition:
+    opacity 1100ms ease,
+    filter 1100ms ease;
 }
 
 .graph-effects:not(.is-awake) .graph-ring,
@@ -1273,7 +1279,7 @@ body {
   box-shadow: 0 0 0 1px rgba(252, 244, 231, 0.10), 0 4px 10px rgba(0, 0, 0, 0.10);
   filter: grayscale(1) saturate(0.25) brightness(0.82);
   opacity: 0.52;
-  animation: graphFallenIdle 3.2s ease-in-out infinite;
+  animation: graphFallenIdle 4.8s ease-in-out infinite;
 }
 
 .graph-effects.is-awake .graph-ring {
