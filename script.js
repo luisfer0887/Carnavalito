@@ -197,6 +197,16 @@ const reelVideo = {
   radius: 17.74,
 };
 
+// Esta capa pone por encima del video a los personajes del cajon amarillo.
+// Si queda un poco corrida, ajusta x, y, width y height.
+const foregroundCharacters = {
+  src: "assets/personajes-video-overlay.png",
+  x: 410.00,
+  y: 760.00,
+  width: 390.00,
+  height: 380.00,
+};
+
 const textBoxes = [
   { x: 452.13, y: 516.15, width: 297.57, height: 529.02, radius: 17.74 },
   { x: 32.36, y: 1151.42, width: 749.30, height: 524.00, radius: 20.00 },
@@ -290,6 +300,24 @@ function renderVideoLayer() {
   card.appendChild(hint);
   container.appendChild(card);
 }
+
+function renderForegroundCharacters() {
+  const container = document.getElementById("videoForegroundLayer");
+  if (!container || !foregroundCharacters.src) return;
+
+  const image = document.createElement("img");
+  image.className = "video-foreground-characters";
+  image.src = foregroundCharacters.src;
+  image.alt = "";
+  image.draggable = false;
+  image.style.left = toLeft(foregroundCharacters.x);
+  image.style.top = toTop(foregroundCharacters.y);
+  image.style.width = toWidth(foregroundCharacters.width);
+  image.style.height = toHeight(foregroundCharacters.height);
+
+  container.appendChild(image);
+}
+
 
 function renderHotspots() {
   const container = document.getElementById("hotspots");
@@ -496,6 +524,7 @@ document.addEventListener("keydown", (event) => {
 
 renderAmbientEffects();
 renderVideoLayer();
+renderForegroundCharacters();
 renderHotspots();
 renderGraphEffects();
 renderTextBoxEffects();
