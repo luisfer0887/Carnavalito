@@ -1,29 +1,32 @@
 let SVG_SIZE = {
-  width: 818.83,
-  height: 14466.88,
+  width: 853,
+  height: 14667.14,
 };
 
 const infoHotspots = [
-  { x: 769.85, y: 1654.88 },
-  { x: 769.85, y: 2077.68 },
-  { x: 769.85, y: 2525.30 },
-  { x: 770.85, y: 2973.69 },
-  { x: 665.10, y: 3347.75 },
-  { x: 769.85, y: 3820.60 },
-  { x: 773.63, y: 4631.40 },
-  { x: 772.14, y: 5202.87 },
-  { x: 774.18, y: 5720.18 },
-  { x: 769.85, y: 6163.59 },
-  { x: 723.82, y: 7585.87 },
-  { x: 770.23, y: 8373.66 },
-  { x: 769.29, y: 9471.55 },
-  { x: 769.29, y: 9727.51 },
-  { x: 770.29, y: 10322.26 },
-  { x: 769.82, y: 10804.69 },
-  { x: 773.45, y: 11331.17 },
-  { x: 722.73, y: 11969.83 },
-  { x: 768.71, y: 14407.25 },
+  { x: 768, y: 1698 },
+  { x: 770, y: 2591 },
+  { x: 768.5, y: 3090.5},
+  { x: 669.5, y: 3475 },
+  { x: 771.5, y: 3929.5 },
+  { x: 769, y: 4832 },
+  { x: 768, y: 5438 },
+  { x: 768.5, y: 5969 },
+  { x: 766, y: 6425 },
+  { x: 735, y: 7884 },
+  { x: 766.2, y: 8708 },
+  { x: 774, y: 10108 },
+  { x: 775, y: 10717 },
+  { x: 774, y: 11212.5 },
+  { x: 777, y: 11753 },
+  { x: 776, y: 12431.5 },
+  { x: 754, y: 14986},
 ];
+
+const alignedInfoHotspots = infoHotspots.map((point) => ({
+  x: point.x + (point.x > 720 ? 32 : point.x > 600 ? 17 : 0),
+  y: point.y * 1.01384,
+}));
 
 /*
   COMO CAMBIAR LAS FUENTES:
@@ -37,79 +40,71 @@ const infoHotspots = [
 const sources = [
   {
     title: "Fuente 1",
-    text: "Elaboración propia a partir del análisis del ejercicio de recolección de datos en Industrias Culturales y Creativas.\nhttps://liveudenaredumy.sharepoint.com/:x:/g/personal/asmendez23b_udenar_edu_co/IQCZycCOA7_8RI7X_zvYlE0_Aa1k9yM2YVAtjD2ZLul_UyI?e=ACIKAD",
+    text: "Fuente propia basada en investigacion en corpocarnaval. \n\nhttps://liveudenaredumy.sharepoint.com/:x:/g/personal/asmendez23b_udenar_edu_co/IQCZycCOA7_8RI7X_zvYlE0_Aa1k9yM2YVAtjD2ZLul_UyI?e=ACIKAD",
   },
   {
     title: "Fuente 2",
-    text: "Elaboración propia a partir del análisis del ejercicio de recolección de datos en Industrias Culturales y Creativas.",
+    text: "Fuente propia basada en investigacion en corpocarnaval. \n\nhttps://liveudenaredumy.sharepoint.com/:x:/g/personal/asmendez23b_udenar_edu_co/IQCZycCOA7_8RI7X_zvYlE0_Aa1k9yM2YVAtjD2ZLul_UyI?e=ACIKAD",
   },
   {
     title: "Fuente 3",
-    text: "Elaboración propia a partir del análisis del ejercicio de recolección de datos en Industrias Culturales y Creativas.",
+    text: "Fuente propia basada en investigacion en corpocarnaval. \n\nhttps://liveudenaredumy.sharepoint.com/:x:/g/personal/asmendez23b_udenar_edu_co/IQCZycCOA7_8RI7X_zvYlE0_Aa1k9yM2YVAtjD2ZLul_UyI?e=ACIKAD",
   },
   {
     title: "Fuente 4",
-    text: "Elaboración propia a partir del análisis del ejercicio de recolección de datos en Industrias Culturales y Creativas.",
+    text: "Fuente propia basada en investigacion en corpocarnaval. \n\nhttps://liveudenaredumy.sharepoint.com/:x:/g/personal/asmendez23b_udenar_edu_co/IQCZycCOA7_8RI7X_zvYlE0_Aa1k9yM2YVAtjD2ZLul_UyI?e=ACIKAD",
   },
   {
     title: "Fuente 5",
-    text: "Elaboración propia a partir del análisis del ejercicio de recolección de datos en Industrias Culturales y Creativas.",
-  },
-  {
-    title: "Fuente 6",
-    text: "Elaboración propia a partir del análisis del ejercicio de recolección de datos en Industrias Culturales y Creativas.",
+    text: "Fuente propia basada en investigacion en corpocarnaval. \n\nhttps://liveudenaredumy.sharepoint.com/:x:/g/personal/asmendez23b_udenar_edu_co/IQCZycCOA7_8RI7X_zvYlE0_Aa1k9yM2YVAtjD2ZLul_UyI?e=ACIKAD",
   },
   {
     title: "UNESCO, 2009",
-    text: "UNESCO (2009). Elementos en las listas de patrimonio cultural inmaterial para Colombia.\nhttps://ich.unesco.org/es/estado/colombia-CO?info=elementos-en-las-listas",
+    text: "(UNESCO, 2009). \n\nhttps://www.mincultura.gov.co/noticias/Paginas/minculturas-presento-avances-y-perspectivas-del-programa-artes-para-la-paz-la-principal-apuesta-del-gobierno-del-cambio.aspx?utm_source",
   },
   {
     title: "Ministerio de Cultura, 2025",
-    text: "Ministerio de Cultura (2025). Avances y perspectivas del programa Artes para la Paz.\nhttps://www.mincultura.gov.co/noticias/Paginas/minculturas-presento-avances-y-perspectivas-del-programa-artes-para-la-paz-la-principal-apuesta-del-gobierno-del-cambio.aspx",
+    text: "(Ministerio de cultura, 2025 ).\n\n Elementos en las listas de patrimonio cultural inmaterial para Colombia.\nhttps://ich.unesco.org/es/estado/colombia-CO?info=elementos-en-las-listas",
   },
   {
     title: "Ministerio de Educación Nacional, 2010",
-    text: "Ministerio de Educación Nacional (2010). Referencia incluida junto a la consulta UNESCO sobre Colombia.\nhttps://ich.unesco.org/es/estado/colombia-CO?info=elementos-en-las-listas",
+    text: "(Ministerio de Educación Nacional, 2010).\n\nhttps://ich.unesco.org/es/estado/colombia-CO?info=elementos-en-las-listas",
   },
   {
     title: "DANE, 2024",
-    text: "DANE (2024). Referencia usada en el documento de fuentes.",
-  },
-  {
-    title: "Trayectorias artísticas juveniles",
-    text: "Universidad Distrital Francisco José de Caldas (s.f.). Trayectorias artísticas juveniles y continuidad de procesos culturales.\nhttps://repository.udistrital.edu.co/items/42ba2fb6-5eed-48fb-8b24-d1db05dce5c4",
-  },
-  {
-    title: "Participación juvenil y arte",
-    text: "Revista Latinoamericana de Ciencias Sociales, Niñez y Juventud (2018). Participación juvenil, arte y procesos culturales en Colombia.\nhttps://revistaumanizales.cinde.org.co/rlcsnj/index.php/Revista-Latinoamericana/article/view/3052",
+    text: "DANE (2024).\n\n Universidad Distrital Francisco José de Caldas. (s.f.). Trayectorias artísticas juveniles ycontinuidad de procesos culturales. https://repository.udistrital.edu.co/items/42ba2fb6-5eed-48fb-8b24-d1db05dce5c4 Revista Latinoamericana de Ciencias Sociales, Niñez y Juventud. (2018). Participación juvenil, arte y procesos culturales en Colombia.\n\nhttps://revistaumanizales.cinde.org.co/rlcsnj/index.php/Revista-Latinoamericana/article/view/3052",
   },
   {
     title: "Corpocarnaval",
-    text: "Corpocarnaval. Material audiovisual de referencia.\nhttps://youtu.be/xsqLGV6wBFw?si=8_u5ykmgTkI7kw4O",
+    text: "Corpocarnaval.\n\nhttps://youtu.be/xsqLGV6wBFw?si=8_u5ykmgTkI7kw4O",
   },
   {
-    title: "Investigación propia en Corpocarnaval",
-    text: "Fuente propia basada en investigación en Corpocarnaval.",
+    title: "Modalidades de participación",
+    text: "Fuente propia basada en investigación en corpocarnaval.",
   },
   {
-    title: "Presupuesto global",
-    text: "Fuentes de Presupuesto Global (Base del Cálculo).\n2015 - 2017: Datos de la investigación “Valoración del impacto económico y social del Carnaval de Negros y Blancos”, con inversiones municipales consolidadas de aprox. $5.000 millones.\n2018 - 2020: Informes de prensa de la Alcaldía de Pasto y comunicados oficiales de Corpocarnaval.\n2021 - 2022: Proyectos de inversión de Asocapitales y decretos de la Gobernación de Nariño.\n2024 - 2026: Declaraciones de la Secretaría de Cultura y comunicados de la Alcaldía de Pasto.",
+    title: "Carnavalito desde adentro",
+    text: "Fuente propia basada en investigación en corpocarnaval.",
   },
   {
-    title: "Participación y formación",
-    text: "Corpocarnaval (s.f.). Manuales de participación.\nAlcaldía de Pasto & Secretaría de Educación (2023-2025). Informes y rendiciones de cuentas del Carnaval de la Alegría Estudiantil.",
+    title: "Inversión Cultural",
+    text: "Fuentes de Presupuesto Global (Base del Cálculo) 2015 - 2017: Datos extraídos de la investigación “Valoración del impacto económico y social del Carnaval de Negros y Blancos” (publicada en SciELO y Lecturas de Economía UdeA), que documenta inversiones municipales consolidadas de aprox. $5.000 millones. 2018 - 2020: Informes de prensa de la Alcaldía de Pasto y comunicados oficiales de Corpocarnaval donde seanunciaban bolsas concursales de $3.000 millones de aporte directo municipal, complementados con patrocinios. 2021 - 2022 (Pandemia): Proyectos de inversión de Asocapitales (Proyecto de Promoción Carnaval 2022) y decretos de la Gobernación de Nariño que detallan el auxilio de $550 millones para artistas en la reactivación. 2024 - 2026: Declaraciones de la Secretaría de Cultura (María Mercedes Figueroa) en Caracol Radio y comunicados de la Alcaldía de Pasto sobre el presupuesto histórico de $9.368 millones aprobado para 2026.",
   },
   {
-    title: "Formación musical y artística",
-    text: "Red de Escuelas de Formación Musical de Pasto (s.f.). Reportes de formación musical y participación juvenil.\nFundación Guardianes del Carnaval (s.f.). Informes de formación artística infantil.",
+    title: "Formación artistica",
+    text: "Corpocarnaval. (s.f.). Manuales de participación. Alcaldía de Pasto & Secretaría de Educación. (2023–2025). Informes y rendiciones de cuentas del Carnaval de la Alegría Estudiantil. Red de Escuelas de Formación Musical de Pasto. (s.f.). Reportes de formación musical y participación juvenil. Fundación Guardianes del Carnaval. (s.f.). Informes de formación artística infantil. Ministerio de Cultura de Colombia. (s.f.). Plan Especial de Salvaguardia (PES) del Carnaval de Negros y Blancos.",
   },
   {
-    title: "Plan Especial de Salvaguardia",
-    text: "Ministerio de Cultura de Colombia (s.f.). Plan Especial de Salvaguardia (PES) del Carnaval de Negros y Blancos.\nDesglose (DANE, 2024), investigación propia con Corpocarnaval.\nRedalyc - Valoración del impacto económico y social del Carnaval de Negros y Blancos de Pasto.",
+    title: "Analisís de impacto",
+    text: "Desglose (DANE, 2024), investigación propia con Corpocarnaval Redalyc – Valoración del impacto económico y social del Carnaval de Negros y Blancos de Pasto",
   },
   {
-    title: "Lineamientos estéticos",
-    text: "LOS LINEAMIENTOS ESTÉTICOS DEL CARNAVAL DE NEGROS Y BLANCOS APLICADOS A LA PINTURA DE CABALLETE.\nhttps://sired.udenar.edu.co/9214/1/91669.pdf\nhttps://www.youtube.com/watch?v=xnYgQ_868JM&t=8s",
+    title: "Mapa",
+    text: "Corpocarnaval:\nhttps://carnavaldepasto.org/que-hacer-en-el-carnaval/#senda ",
+  },
+  {
+    title: "Linea de tiempo",
+    text: "LOS LINEAMIENTOS ESTÉTICOS DEL CARNAVAL DE NEGROS Y BLANCOS APLICADOS A LA PINTURA DE CABALLETE\n\nhttps://sired.udenar.edu.co/9214/1/91669.pdf",
   },
 ];
 
@@ -193,15 +188,15 @@ const graphPoints = [
   - animationStagger controla la separacion entre cada punto al subir.
 */
 const graphControls = {
-  offsetX: 0,
-  offsetY: 0,
-  restLineY: 3294,
+  offsetX: 10,
+  offsetY: 165,
+  restLineY: 3422.5,
   animationStagger: 0.055,
   activationArea: {
-    x: 218,
-    y: 3005,
-    width: 372,
-    height: 330,
+    x: 122,
+    y: 3300,
+    width: 600,
+    height: 388,
   },
 };
 
@@ -210,22 +205,19 @@ const reelVideo = {
   // Ejemplo: "assets/mi-video.mp4"
   src: "assets/video.mp4",
   poster: "",
-  x: 452.13,
-  y: 516.15,
-  width: 297.57,
-  height: 529.02,
-  radius: 17.74,
+  x: 470,
+  y: 534,
+  width: 310,
+  radius: 18,
 };
 
 // Esta capa pone por encima del video a los personajes del cajon amarillo.
 // Si queda un poco corrida, ajusta x, y, width y height.
 const foregroundCharacters = {
-  // Usamos el SVG que pasaste, sin modificarlo ni extraerlo de ningun lado.
   src: "assets/personajes_1.svg",
-  // Ubicado en la parte inferior y centrado del cajon amarillo, encima del video.
-  x: 426.00,
-  y: 906.00,
-  width: 400.00,
+  x: 456,
+  y: 951,
+  width: 400,
 };
 
 
@@ -233,233 +225,6 @@ const foregroundCharacters = {
 // Datos del mapa de propuestas.
 // La informacion viene del PDF de Participantes 2026 y queda escrita aqui para que la pagina sea estatica.
 // Para ampliar el mapa: agrega mas participantes a proposalParticipants y mas puntos a proposalMapPoints.
-const proposalParticipants = [
-  {
-    "institucion": "FUNDACIÓN CULTURAL COMPAZ PASTO",
-    "propuesta": "INTI AWKI - HEREDEROS DEL SOL",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "INSTITUTO CHAMPAGNAT",
-    "propuesta": "CHAMBU \"EL SENTIDO DE LA TIERRA\"",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "FUNDACIÓN GRUPO FACTOR FILOTIMO",
-    "propuesta": "WARMI KAWSAY QUILLA - \"LA LUNA QUE CURA CON PLANTAS\"",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "FUNDACIÓN ILLARY",
-    "propuesta": "RURALIDAD MÍSTICA",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "FUNDACIÓN ILLARY",
-    "propuesta": "\"PASTO\" Y SU CORSO DE FLORES",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "FUNDACIÓN GUARDIANES DEL CARNAVAL",
-    "propuesta": "ECOS DE UNA TRADICIÓN: MOCONDINO Y SUS SANTOS REYES",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "FUNDACIÓN GUARDIANES DEL CARNAVAL",
-    "propuesta": "LA GRAN MASCARADA",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "FUNDACIÓN CULTURAL INDOAMERICANTICO",
-    "propuesta": "ESPÍRITUS GUARDIANES",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "FUNDACIÓN CULTURAL MUSURUNAKUNA HOMBRES NUEVOS",
-    "propuesta": "LOS TITANES DEL CARNAVALITO 2026",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "I.E.M MERCEDARIO",
-    "propuesta": "LA MUJER MULA",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "I.E.M NUESTRA SEÑORA DE GUADALUPE",
-    "propuesta": "EL CHURO CÓSMICO EN EL CARNAVALITO",
-    "modalidad": "MURGUITA"
-  },
-  {
-    "institucion": "I.E.M LUIS DELFIN INSUASTY RODRIGUEZ",
-    "propuesta": "KUYAY MUNAY \"EL ENCANTO DE LA LAGUNA DE LA COCHA\" LLUVIA DE ESTRELLAS",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "COLEGIO NUESTRA SEÑORA DEL CARMEN",
-    "propuesta": "JUBILEO DE COLORES \"UN CANTO A LA UNIDAD\"",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "FUNDACIÓN MARIA VALENTINA",
-    "propuesta": "ILLAQ RUNA (PORTADORES DE LUZ)",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "FUNDACIÓN CULTURAL SUR MESTIZO",
-    "propuesta": "AIRES DE AMANECER",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "FUNDACIÓN CULTURAL GUAGÜITAS DEL VOLCAN",
-    "propuesta": "GUARDIANES DEL CAMPO: ALEGRÍA Y TRADICIÓN",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "I.E.M TECNICO INDUSTRIAL",
-    "propuesta": "LA NATURALEZA NUESTRO HOGAR",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "FUNDACIÓN CULTURAL TEMPO",
-    "propuesta": "PACHAK: UN SIGLO DE HISTORIA, JUEGO E IDENTIDAD",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "COLEGIO SAN FRANCISCO JAVIER - COMPAÑÍA DE JESUS",
-    "propuesta": "SAN JUAN DE PASTO: FIESTA Y ALEGRÍA MULTICULTURAL \"FACHADAS DE CARNAVAL\"",
-    "modalidad": "DISFRAZ INDIVIDUAL"
-  },
-  {
-    "institucion": "COLEGIO SAN FRANCISCO JAVIER - COMPAÑÍA DE JESUS",
-    "propuesta": "FACHADAS DE CARNAVAL",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "COLEGIO SAN FRANCISCO JAVIER - COMPAÑÍA DE JESUS",
-    "propuesta": "FACHADAS DE CARNAVAL",
-    "modalidad": "COLECTIVO COREOGRÁFICO"
-  },
-  {
-    "institucion": "JULIETTA EVANGELYN DELGADO ERASO",
-    "propuesta": "MADERAL ENTRE ARTE Y CARNAVAL",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "SAMUEL ALEJANDRO NOGUERA ROJAS",
-    "propuesta": "FIESTA Y DEVOCIÓN EN MI TIERRA CARNAVALERA",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "NELSON ALEJANDRO RIASCOS ERAZO",
-    "propuesta": "CELESTE Y EL BAILE DE LAS MARIPOSAS",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "DANNA AILYN RUANO CHAMORRO",
-    "propuesta": "LA CASA DE MICKEY MOUSE",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "JUAN PABLO BOTINA GUZMAN",
-    "propuesta": "VIVIENDO MI SUEÑO",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "ANGELA MANUELA BENAVIDES SUAREZ",
-    "propuesta": "PUKLLAY JUKU - EL JUEGO DEL BÚHO",
-    "modalidad": "DISFRAZ INDIVIDUAL"
-  },
-  {
-    "institucion": "LUCIANA DE LA ROSA ARCE",
-    "propuesta": "MIMI - UN AMOR ENTRE LAS AGUAS DEL PACIFICO",
-    "modalidad": "DISFRAZ INDIVIDUAL"
-  },
-  {
-    "institucion": "LAURA VALERIA BOLAÑOS VASQUEZ",
-    "propuesta": "AMERICA INDIA",
-    "modalidad": "MURGUITA"
-  },
-  {
-    "institucion": "ANTONIA SARABHI ZARAMA BOLAÑOS",
-    "propuesta": "MANDALAS DE VIDA",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "KEVIN FERNANDO VITERI MELO",
-    "propuesta": "TRASCENDENCIA",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "ISAAC MATHIAS GALINDEZ SANTANDER",
-    "propuesta": "UN LADRON DE SONRISAS",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "AMAITE TAUTAS EGAS QUINDE",
-    "propuesta": "TEJEDOR DE VIDA",
-    "modalidad": "DISFRAZ INDIVIDUAL"
-  },
-  {
-    "institucion": "SANTHIAGO ALEJANDRO ESCOBAR VALLEJO",
-    "propuesta": "NUESTRA FIESTA, NUESTRO FUTURO",
-    "modalidad": "MURGUITA"
-  },
-  {
-    "institucion": "MARIA CAMILA BENAVIDES CASTRO",
-    "propuesta": "GUANEÑA MUJER GUERRERA",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "ABBY ALEJANDRA GOYES JOJOA - ISABELLA SOFIA GOYES JOJOA",
-    "propuesta": "LAS GUAGUAS DE MI PUEBLO",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "JOAQUIN ALEJANDRO MEDINA ROSERO",
-    "propuesta": "JUGANDO SUEÑOS",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "VIOLETA RODRIGUEZ TAPIA",
-    "propuesta": "SUEÑO ANDINO",
-    "modalidad": "DISFRAZ INDIVIDUAL"
-  },
-  {
-    "institucion": "SAMUEL ALEJANDRO GONZALEZ BURBANO",
-    "propuesta": "PACHA MAMA",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "MARYANGEL BOTINA CORTEZ",
-    "propuesta": "MASCOTICAS EN EL CARNAVAL",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "HELEN SAMAY PUPIALES JIMENEZ",
-    "propuesta": "EL ARADO OBONUQUEÑO",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "GAEL BENAVIDES",
-    "propuesta": "SPEEDY RODANDO EN EL CARNAVAL",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "SARITA FERNANDA ESTACIO ESPAÑA",
-    "propuesta": "DESDE EL MAR HASTA EL GALERAS, DONDE LA TIERRA Y EL AGUA CELEBRAN LA ABUNDANCIA",
-    "modalidad": "COMPARSITA"
-  },
-  {
-    "institucion": "ELIAN DAVID MORAN ESTRELLA",
-    "propuesta": "EL CONDOR SUBE EL TAPIZ DE RETAZOS, UN VUELO POR EL CARNAVALITO",
-    "modalidad": "CARROCITA"
-  },
-  {
-    "institucion": "LAURA SOFIA ORDOÑEZ GUERRERO",
-    "propuesta": "ALFAREROS DE NARIÑO",
-    "modalidad": "COMPARSITA"
-  }
-];
 
 const proposalMapPanel = {
   // Esta capa queda exactamente sobre el interior oscuro del cuadro del SVG.
@@ -479,19 +244,45 @@ const modalityColors = {
   default: { color: "#1ca1a0", glow: "rgba(28, 161, 160, 0.58)" },
 };
 
+const modalityModalRoutes = {
+  colectivos: {
+    label: "Colectivo coreográfico",
+    src: "assets/modalidades/colectivos.svg",
+    color: "#ec668a",
+  },
+  comparsita: {
+    label: "Comparsita",
+    src: "assets/modalidades/comparsita.svg",
+    color: "#6c2b73",
+  },
+  disfraz: {
+    label: "Disfraz individual",
+    src: "assets/modalidades/disfraz.svg",
+    color: "#1ca1a0",
+  },
+  murguita: {
+    label: "Murguita",
+    src: "assets/modalidades/murguita.svg",
+    color: "#fcc630",
+  },
+  carrocita: {
+    label: "Carrocita",
+    src: "assets/modalidades/carrocita.svg",
+    color: "#ec668a",
+  },
+};
+
 const proposalMapPoints = [
-  // Coordenadas ajustadas al SVG nuevo.
-  // Cada punto es un area transparente encima del icono visible del mapa.
-  { id: "punto-01", x: 616, y: 11685, participantIndex: 0 },
-  { id: "punto-02", x: 438, y: 11708, participantIndex: 5 },
-  { id: "punto-03", x: 592, y: 11732, participantIndex: 11 },
-  { id: "punto-04", x: 521, y: 11744, participantIndex: 16 },
-  { id: "punto-05", x: 391, y: 11768, participantIndex: 20 },
-  { id: "punto-06", x: 450, y: 11792, participantIndex: 24 },
-  { id: "punto-07", x: 485, y: 11804, participantIndex: 30 },
-  { id: "punto-08", x: 556, y: 11827, participantIndex: 33 },
-  { id: "punto-09", x: 427, y: 11862, participantIndex: 39 },
-  { id: "punto-10", x: 509, y: 11910, participantIndex: 44 },
+  // Coordenadas reales del SVG final carnavalito(10).svg.
+  // Se dejan varias areas cuando una modalidad aparece mas de una vez en el mapa.
+  { id: "map-colectivo-inicio", x: 676, y: 12368.5, modality: "colectivos" },
+  { id: "map-colectivo-final", x: 666, y: 12536, modality: "colectivos" },
+  { id: "map-comparsita-arriba", x: 693, y: 12432, modality: "comparsita" },
+  { id: "map-comparsita-centro", x: 549, y: 12522.5, modality: "comparsita" },
+  { id: "map-disfraz", x: 490, y: 12443, modality: "disfraz" },
+  { id: "map-murguita", x: 607, y: 12538, modality: "murguita" },
+  { id: "map-carrocita-izq", x: 486.5, y: 12502, modality: "carrocita" },
+  { id: "map-carrocita-der", x: 705, y: 12485, modality: "carrocita" },
 ];
 
 const timelineItems = [
@@ -499,95 +290,93 @@ const timelineItems = [
     id: "timeline-1926",
     label: "1926",
     src: "assets/timeline/foto1.jpeg",
-    // Alineado con el cuadro de texto del lado contrario.
-    image: { x: 447, y: 13063, width: 252, height: 165, radius: 16 },
-    trigger: { x: 397, y: 13145 },
+    image: { x: 456, y: 13715, width: 252, height: 165, radius: 16 },
+    trigger: { x: 400, y: 13798 },
   },
   {
     id: "timeline-1950-a",
     label: "1950",
     src: "assets/timeline/foto2.jpeg",
-    image: { x: 97, y: 13299, width: 252, height: 164, radius: 16 },
-    trigger: { x: 397, y: 13381 },
+    image: { x: 93, y: 13960, width: 252, height: 165, radius: 16 },
+    trigger: { x: 400, y: 14042 },
   },
   {
     id: "timeline-1926-b",
     label: "1926",
     src: "assets/timeline/foto3.jpeg",
-    image: { x: 447, y: 13534, width: 252, height: 165, radius: 16 },
-    trigger: { x: 397, y: 13617 },
+    image: { x: 456, y: 14204, width: 252, height: 165, radius: 16 },
+    trigger: { x: 400, y: 14288 },
   },
   {
     id: "timeline-1950-b",
     label: "1950",
     src: "assets/timeline/foto4.jpeg",
-    image: { x: 97, y: 13768, width: 252, height: 164, radius: 16 },
-    trigger: { x: 397, y: 13850 },
+    image: { x: 92, y: 14448, width: 252, height: 165, radius: 16 },
+    trigger: { x: 400, y: 14530},
   },
   {
     id: "timeline-1966",
     label: "1966",
     src: "assets/timeline/foto5.jpeg",
-    image: { x: 447, y: 14000, width: 252, height: 165, radius: 16 },
-    trigger: { x: 396, y: 14085 },
+    image: { x: 456, y: 14774, width: 252, height: 165, radius: 16 },
+    trigger: { x: 400, y: 14864},
   },
   {
     id: "timeline-modernidad",
     label: "Modernidad",
     src: "assets/timeline/foto6.jpeg",
-    image: { x: 97, y: 14194, width: 252, height: 165, radius: 16 },
-    trigger: { x: 396, y: 14276 },
+    image: { x: 92, y: 14980, width: 252, height: 165, radius: 16 },
+    trigger: { x: 400, y: 15064},
   },
 ];
 
 const textBoxes = [
-  { x: 452.13, y: 516.15, width: 297.57, height: 529.02, radius: 17.74 },
-  { x: 32.36, y: 1151.42, width: 749.30, height: 524.00, radius: 20.00 },
-  { x: 75.80, y: 1467.98, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 243.12, y: 1467.98, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 410.44, y: 1467.98, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 577.76, y: 1467.98, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 73.46, y: 1887.22, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 240.78, y: 1887.22, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 408.10, y: 1887.22, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 575.42, y: 1887.22, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 164.69, y: 2441.46, width: 135.30, height: 60.71, radius: 11.48 },
-  { x: 341.48, y: 2441.46, width: 135.30, height: 60.71, radius: 11.48 },
-  { x: 512.04, y: 2441.46, width: 135.30, height: 60.71, radius: 11.48 },
-  { x: 65.60, y: 2664.54, width: 222.51, height: 164.44, radius: 19.01 },
-  { x: 294.51, y: 2664.54, width: 222.51, height: 164.44, radius: 19.01 },
-  { x: 523.42, y: 2664.54, width: 222.51, height: 164.44, radius: 19.01 },
-  { x: 107.35, y: 3006.62, width: 596.83, height: 386.42, radius: 24.99 },
-  { x: 91.29, y: 3504.05, width: 181.33, height: 181.33, radius: 18.02 },
-  { x: 315.25, y: 3504.05, width: 181.33, height: 181.33, radius: 18.02 },
-  { x: 536.31, y: 3504.05, width: 181.33, height: 181.33, radius: 18.02 },
-  { x: 325.32, y: 4306.87, width: 186.06, height: 99.94, radius: 9.81 },
-  { x: 254.11, y: 5144.52, width: 119.12, height: 51.48, radius: 4.67 },
-  { x: 86.57, y: 5291.61, width: 250.58, height: 60.24, radius: 6.58 },
-  { x: 249.93, y: 6244.94, width: 131.58, height: 88.98, radius: 12.00 },
-  { x: 427.79, y: 6244.94, width: 131.58, height: 88.98, radius: 12.00 },
-  { x: 609.16, y: 6244.94, width: 131.58, height: 88.98, radius: 12.00 },
-  { x: 414.62, y: 6916.41, width: 288.97, height: 278.74, radius: 13.80 },
-  { x: 88.40, y: 7490.70, width: 273.12, height: 57.76, radius: 7.41 },
-  { x: 89.30, y: 7553.49, width: 273.12, height: 57.76, radius: 8.37 },
-  { x: 230.67, y: 7893.36, width: 131.58, height: 88.98, radius: 12.00 },
-  { x: 581.14, y: 7894.25, width: 131.58, height: 88.98, radius: 12.00 },
-  { x: 231.52, y: 8029.04, width: 131.58, height: 88.98, radius: 12.00 },
-  { x: 579.84, y: 8037.14, width: 131.58, height: 88.98, radius: 12.00 },
-  { x: 454.53, y: 8208.22, width: 159.27, height: 107.70, radius: 12.00 },
-  { x: 68.42, y: 10235.97, width: 315.91, height: 64.02, radius: 12.00 },
-  { x: 71.81, y: 10544.69, width: 298.98, height: 117.19, radius: 12.00 },
-  { x: 456.95, y: 11111.33, width: 288.25, height: 51.28, radius: 15.92 },
-  { x: 456.95, y: 11174.70, width: 288.25, height: 51.28, radius: 15.92 },
-  { x: 456.95, y: 11238.06, width: 288.25, height: 51.28, radius: 15.92 },
-  { x: 75.76, y: 11707.14, width: 162.65, height: 162.65, radius: 16.17 },
-  { x: 411.69, y: 11964.77, width: 330.89, height: 303.29, radius: 20.98 },
-  { x: 97.53, y: 13060.04, width: 252.76, height: 165.33, radius: 16.01 },
-  { x: 447.76, y: 13295.37, width: 252.76, height: 165.33, radius: 16.01 },
-  { x: 97.53, y: 13530.71, width: 252.76, height: 165.33, radius: 16.01 },
-  { x: 447.76, y: 13764.34, width: 252.76, height: 165.33, radius: 16.01 },
-  { x: 97.32, y: 13996.99, width: 252.76, height: 165.33, radius: 16.01 },
-  { x: 447.28, y: 14190.62, width: 252.76, height: 165.33, radius: 16.01 },
+  { x: 480.13, y: 516.15, width: 297.57, height: 529.02, radius: 17.74 },
+  { x: 32.36, y: 1210, width: 749.30, height: 524.00, radius: 20.00 },
+  { x: 82.00, y: 1530, width: 162.65, height: 162.65, radius: 16.17 },
+  { x: 256, y: 1530, width: 162.65, height: 162.65, radius: 16.17 },
+  { x: 430, y: 1530, width: 162.65, height: 162.65, radius: 16.17 },
+  { x: 604, y: 1530, width: 162.65, height: 162.65, radius: 16.17 },
+  { x: 77.5, y: 1968, width: 162.65, height: 162.65, radius: 16.17 },
+  { x: 251, y: 1968, width: 162.65, height: 162.65, radius: 16.17 },
+  { x: 424.5, y: 1968, width: 162.65, height: 162.65, radius: 16.17 },
+  { x: 599, y: 1968, width: 162.65, height: 162.65, radius: 16.17 },
+  { x: 171, y: 2543, width: 135.30, height: 60.71, radius: 11.48 },
+  { x: 355, y: 2543, width: 135.30, height: 60.71, radius: 11.48 },
+  { x: 532.5, y: 2543, width: 135.30, height: 60.71, radius: 11.48 },
+  { x: 68.5, y: 2816, width: 222.51, height: 164.44, radius: 19.01 },
+  { x: 306.5, y: 2816, width: 222.51, height: 164.44, radius: 19.01 },
+  { x: 544, y: 2816, width: 222.51, height: 164.44, radius: 19.01 },
+  { x: 118.5, y: 3176, width: 596.83, height: 386.42, radius: 24.99 },
+  { x: 94, y: 3690, width: 181.33, height: 181.33, radius: 18.02 },
+  { x: 326.5, y: 3690, width: 181.33, height: 181.33, radius: 18.02 },
+  { x: 556.5, y: 3690, width: 181.33, height: 181.33, radius: 18.02 },
+  { x: 340, y: 4563, width: 186.06, height: 99.94, radius: 9.81 },
+  { x: 264, y: 5454, width: 119.12, height: 51.48, radius: 4.67 },
+  { x: 93, y: 5608, width: 250.58, height: 60.24, radius: 6.58 },
+  { x: 262, y: 6600, width: 131.58, height: 88.98, radius: 12.00 },
+  { x: 443, y: 6600, width: 131.58, height: 88.98, radius: 12.00 },
+  { x: 634.5, y: 6601, width: 131.58, height: 88.98, radius: 12.00 },
+  { x: 435, y: 7300, width: 288.97, height: 278.74, radius: 13.80 },
+  { x: 95, y: 7895, width: 273.12, height: 57.76, radius: 7.41 },
+  { x: 96, y: 7960, width: 273.12, height: 57.76, radius: 8.37 },
+  { x: 238, y: 8330, width: 131.58, height: 88.98, radius: 12.00 },
+  { x: 604, y: 8331, width: 131.58, height: 88.98, radius: 12.00 },
+  { x: 240, y: 8470, width: 131.58, height: 88.98, radius: 12.00 },
+  { x: 602, y: 8478, width: 131.58, height: 88.98, radius: 12.00 },
+  { x: 473, y: 8657, width: 159.27, height: 107.70, radius: 12.00 },
+  { x: 84, y: 10777.5, width: 315.91, height: 64.02, radius: 12.00 },
+  { x: 88, y: 11100, width: 298.98, height: 117.19, radius: 12.00 },
+  { x: 487, y: 11688, width: 288.25, height: 51.28, radius: 15.92 },
+  { x: 487, y: 11754, width: 288.25, height: 51.28, radius: 15.92 },
+  { x: 487, y: 11820, width: 288.25, height: 51.28, radius: 15.92 },
+  { x: 420, y: 12630, width: 330.89, height: 250, radius: 20.98 },
+  { x: 92, y: 13715, width: 252.76, height: 165.33, radius: 16.01 },
+  { x: 456, y: 13960, width: 252.76, height: 165.33, radius: 16.01 },
+  { x: 92, y: 14204, width: 252.76, height: 165.33, radius: 16.01 },
+  { x: 456, y: 14448, width: 252.76, height: 165.33, radius: 16.01 },
+  { x: 92, y: 14778, width: 252.76, height: 165.33, radius: 16.01 },
+  { x: 456, y: 14979, width: 252.76, height: 165.33, radius: 16.01 },
 ];
 
 const toLeft = (x) => `${(x / SVG_SIZE.width) * 100}%`;
@@ -646,7 +435,11 @@ function renderForegroundCharacters() {
   image.style.left = toLeft(foregroundCharacters.x);
   image.style.top = toTop(foregroundCharacters.y);
   image.style.width = toWidth(foregroundCharacters.width);
-  image.style.height = toHeight(foregroundCharacters.height);
+  if (foregroundCharacters.height) {
+    image.style.height = toHeight(foregroundCharacters.height);
+  } else {
+    image.style.height = "auto";
+  }
 
   container.appendChild(image);
 }
@@ -661,90 +454,36 @@ function renderProposalMapLayer() {
   const container = document.getElementById("mapInteractionLayer");
   if (!container) return;
 
-  const card = document.createElement("section");
-  card.className = "proposal-map-card";
-  card.setAttribute("aria-live", "polite");
-  card.style.left = toLeft(proposalMapPanel.x);
-  card.style.top = toTop(proposalMapPanel.y);
-  card.style.width = toWidth(proposalMapPanel.width);
-  card.style.height = toHeight(proposalMapPanel.height);
-  container.appendChild(card);
-
-  renderProposalEmpty(card);
-
   const fragment = document.createDocumentFragment();
-  proposalMapPoints.forEach((point, index) => {
-    const participant = proposalParticipants[point.participantIndex];
-    const style = getModalityStyle(participant?.modalidad);
-    const button = document.createElement("button");
-    const dot = document.createElement("span");
 
+  proposalMapPoints.forEach((point) => {
+    const modality = modalityModalRoutes[point.modality];
+    if (!modality) return;
+
+    const button = document.createElement("button");
     button.type = "button";
-    button.className = "proposal-map-point";
+    button.className = "proposal-map-point modality-map-point";
     button.style.left = toLeft(point.x);
     button.style.top = toTop(point.y);
-    button.style.setProperty("--proposal-color", style.color);
-    button.style.setProperty("--proposal-glow", style.glow);
-    button.setAttribute("aria-label", participant ? `Ver propuesta: ${participant.propuesta}` : `Ver propuesta ${index + 1}`);
-    button.dataset.participantIndex = String(point.participantIndex);
+    button.style.setProperty("--proposal-color", modality.color);
+    button.style.setProperty("--proposal-glow", modality.color);
+    button.setAttribute("aria-label", `Abrir modalidad: ${modality.label}`);
+    button.dataset.modality = point.modality;
 
+    const dot = document.createElement("span");
     dot.className = "proposal-map-dot";
     button.appendChild(dot);
 
     button.addEventListener("click", () => {
       container.querySelectorAll(".proposal-map-point.is-active").forEach((item) => item.classList.remove("is-active"));
       button.classList.add("is-active");
-      renderProposalDetail(card, participant);
-      renderMobileProposalDetail(participant);
+      openModality(point.modality);
     });
 
     fragment.appendChild(button);
   });
 
   container.appendChild(fragment);
-}
-
-function renderProposalEmpty(card) {
-  // El SVG ya trae el mensaje inicial. Dejamos esta capa vacia
-  // para no duplicar el cuadro morado ni el texto de ayuda.
-  card.classList.remove("has-selection");
-  card.innerHTML = "";
-}
-
-function renderProposalDetail(card, participant) {
-  if (!participant) return;
-
-  card.classList.add("has-selection");
-  card.innerHTML = `
-    <article class="proposal-detail">
-      <span class="proposal-kicker">${escapeHtml(participant.modalidad)}</span>
-      <h3 class="proposal-title">${escapeHtml(participant.propuesta)}</h3>
-      <p class="proposal-name">${escapeHtml(participant.institucion)}</p>
-    </article>
-  `;
-}
-
-function renderMobileProposalDetail(participant) {
-  const sheet = document.getElementById("proposalMobileSheet");
-  if (!sheet || !participant) return;
-
-  sheet.classList.add("is-open");
-  sheet.setAttribute("aria-hidden", "false");
-  sheet.innerHTML = `
-    <button class="proposal-mobile-close" type="button" aria-label="Cerrar información">×</button>
-    <article class="proposal-detail">
-      <span class="proposal-kicker">${escapeHtml(participant.modalidad)}</span>
-      <h3 class="proposal-title">${escapeHtml(participant.propuesta)}</h3>
-      <p class="proposal-name">${escapeHtml(participant.institucion)}</p>
-    </article>
-  `;
-
-  const close = sheet.querySelector(".proposal-mobile-close");
-  close?.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    closeMobileProposalSheet();
-  });
 }
 
 function closeMobileProposalSheet() {
@@ -819,7 +558,7 @@ function renderHotspots() {
   const container = document.getElementById("hotspots");
   const fragment = document.createDocumentFragment();
 
-  infoHotspots.forEach((point, index) => {
+  alignedInfoHotspots.forEach((point, index) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "info-hotspot";
@@ -1056,20 +795,64 @@ function observeTextBoxes(items) {
   items.forEach((item) => observer.observe(item));
 }
 
-function openSource(index) {
-  const source = sources[index] || sources[sources.length - 1];
+function setModalContent(html, mode = "source") {
   const modal = document.getElementById("sourceModal");
+  const card = modal?.querySelector(".source-card");
+  const content = document.getElementById("sourceContent");
+  if (!modal || !card || !content) return;
 
-  document.getElementById("sourceText").textContent = source.text;
+  card.classList.toggle("is-modality-modal", mode === "modality");
+  card.classList.toggle("is-source-modal", mode !== "modality");
+  content.innerHTML = html;
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
-  document.querySelector(".source-close").focus();
+  document.querySelector(".source-close")?.focus();
+}
+
+function openModality(modalityKey) {
+  const modality = modalityModalRoutes[modalityKey];
+  if (!modality) return;
+
+  setModalContent(`
+    <article class="modality-modal-content">
+      <header class="modality-modal-header">
+        <span class="modality-modal-kicker">Modalidad</span>
+        <h3>${escapeHtml(modality.label)}</h3>
+      </header>
+      <div class="modality-svg-frame">
+        <img class="modality-svg" src="${escapeHtml(modality.src)}" alt="${escapeHtml(modality.label)}" loading="lazy" decoding="async">
+        <p class="modality-missing" aria-hidden="true">Agrega el archivo:<br><strong>${escapeHtml(modality.src)}</strong></p>
+      </div>
+    </article>
+  `, "modality");
+
+  const image = document.querySelector(".modality-svg");
+  const missing = document.querySelector(".modality-missing");
+  image?.addEventListener("load", () => {
+    image.classList.add("is-loaded");
+    if (missing) missing.style.display = "none";
+  }, { once: true });
+  image?.addEventListener("error", () => {
+    image.style.display = "none";
+    if (missing) missing.removeAttribute("aria-hidden");
+  }, { once: true });
+}
+
+function openSource(index) {
+  const source = sources[index] || sources[sources.length - 1];
+  setModalContent(`<p id="sourceText"></p>`, "source");
+  const sourceText = document.getElementById("sourceText");
+  if (sourceText) sourceText.textContent = source.text;
 }
 
 function closeSource() {
   const modal = document.getElementById("sourceModal");
-  modal.classList.remove("is-open");
-  modal.setAttribute("aria-hidden", "true");
+  const card = modal?.querySelector(".source-card");
+  const content = document.getElementById("sourceContent");
+  modal?.classList.remove("is-open");
+  modal?.setAttribute("aria-hidden", "true");
+  card?.classList.remove("is-modality-modal");
+  if (content) content.innerHTML = `<p id="sourceText"></p>`;
 }
 
 document.addEventListener("click", (event) => {
@@ -1118,16 +901,14 @@ function applySvgDisplayMetrics(metrics) {
 }
 
 function syncSvgMetrics() {
-  // Este proyecto usa el SVG nuevo exportado con un viewBox grande.
-  // NO se modifica el SVG: solo se recorta visualmente por CSS para mostrar el area real.
-  // Esto evita volver a leer el SVG completo por fetch y mejora el tiempo de carga.
+  // SVG final limpio: usa su propio viewBox sin recortes ni desplazamientos.
   applySvgDisplayMetrics({
-    rawWidth: 3113.15,
-    rawHeight: 16332.15,
-    activeWidth: 818.38,
-    activeHeight: 14465.87,
-    cropX: 351.16,
-    cropY: 56.80,
+    rawWidth: 853,
+    rawHeight: 14667.14,
+    activeWidth: 853,
+    activeHeight: 14667.14,
+    cropX: 0,
+    cropY: 0,
   });
 }
 

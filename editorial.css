@@ -1,0 +1,133 @@
+/* ======================================================
+   editorial.css — Sección editorial nueva (al final)
+   SOLO agrega estilos para la nueva sección.
+   No modifica styles.css ni video-width-fix.css.
+   ====================================================== */
+
+/* Contenedor externo de la sección editorial */
+.editorial-stage {
+  display: block;
+  width: 100%;
+  background: var(--dark, #4b0f1a);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Wrapper que mantiene el aspect-ratio exacto del SVG editorial.
+   viewBox del SVG: 0 0 1240.19 5422.52 */
+.editorial-wrapper {
+  position: relative;
+  width: 100vw;
+  aspect-ratio: 1240.19 / 5422.52;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform: translate(0, 22.5%) scale(1.45);
+}
+
+/* La imagen SVG cubre todo el wrapper */
+.editorial-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+  transform: translate(0, 1.9%) scale(1.04);
+}
+
+/* ── Slots de video ─────────────────────────────────────
+   Cada slot se superpone exactamente sobre una caja
+   amarilla (fill:#f7ac05) del SVG editorial.
+
+   Coordenadas en el viewBox (0 0 1240.19 5422.52):
+     Box 1 — César Villota:         x=499.70, y=3565.14, w=482.37, h=271.47
+     Box 2 — Mariana Montaño:       x=499.70, y=4068.88, w=482.37, h=271.47
+     Box 3 — Óscar Fernando Ruano:  x=496.64, y=4611.18, w=482.37, h=271.47
+
+   Los % se calculan sobre el viewBox:
+     left  = x / 1240.19 × 100
+     top   = y / 5422.52 × 100
+     width = w / 1240.19 × 100
+     height= h / 5422.52 × 100
+   ──────────────────────────────────────────────────── */
+
+.editorial-video-slot {
+  position: absolute;
+  overflow: hidden;
+  z-index: 2;
+  /* border-radius escala con el SVG: rx=23.7 del SVG
+     calc(23.7 / 1240.19 * 100vw) */
+  border-radius: calc(1.9126% * (100vw / 100vw)); /* simplificado: */
+  border-radius: calc(23.7 / 1240.19 * 100vw);
+}
+
+/* Video 1 — César Villota */
+#editorialVideo1 {
+  left:   40.2%;
+  top:    68.35%;
+  width:  40%;
+  height: 5.0063%;
+}
+
+/* Video 2 — Mariana Montaño */
+#editorialVideo2 {
+  left:   40.2%;
+  top:    78%;
+  width:  40%;
+  height: 5.0063%;
+}
+
+/* Video 3 — Óscar Fernando Ruano */
+#editorialVideo3 {
+  left:   39.9%;
+  top:    88.4%;
+  width:  40%;
+  height: 5.0063%;
+}
+
+/* El iframe cubre todo el slot */
+.editorial-iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}
+
+/* Con src vacío, el iframe es invisible y se ve la caja
+   amarilla del SVG. Cuando agregues la URL de YouTube,
+   el video aparece automáticamente sobre la caja. */
+.editorial-iframe[src=""] {
+  display: none;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (min-width: 900px) {
+  /* El video-width-fix.css ya fuerza 100vw en todo.
+     Si en algún momento se usa el layout original con
+     min(88vw, 1240px), descomentar las líneas de abajo: */
+  /*
+  .editorial-wrapper {
+    width: min(88vw, 1240px);
+    margin-inline: auto;
+    border-radius: 22px;
+    box-shadow: 0 28px 90px rgba(0,0,0,.28),
+                0 0 0 1px rgba(252,244,231,.12);
+  }
+  .editorial-video-slot {
+    border-radius: calc(23.7 / 1240.19 * min(88vw, 1240px));
+  }
+  */
+}
+
+@media (max-width: 700px) {
+  .editorial-video-slot {
+    border-radius: calc(23.7 / 1240.19 * 100vw);
+  }
+}

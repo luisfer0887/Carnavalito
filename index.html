@@ -6,10 +6,11 @@
   <title>Carnavalito</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="video-width-fix.css">
+  <link rel="stylesheet" href="editorial.css"><!-- NUEVO: estilos sección editorial -->
 </head>
 <body>
   <div id="svgStage" class="svg-stage" aria-label="Infografía Carnavalito interactiva">
-    <img id="mainSvg" src="assets/Carnavalito.svg" alt="Infografía Carnavalito" draggable="false" loading="eager" decoding="async">
+    <img id="mainSvg" src="assets/carnavalito.svg" alt="Infografía Carnavalito" draggable="false" loading="eager" decoding="async">
     <div id="ambientEffects" class="ambient-effects" aria-hidden="true"></div>
     <div id="graphEffects" class="graph-effects" aria-hidden="true"></div>
     <div id="textBoxEffects" class="text-box-effects" aria-hidden="true"></div>
@@ -20,6 +21,62 @@
     <div id="hotspots" class="hotspots" aria-label="Puntos de información"></div>
   </div>
 
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN EDITORIAL — nueva, va después de la infografía
+       principal. No modifica nada de lo que había antes.
+
+       Para agregar los videos de YouTube, reemplaza el src=""
+       de cada iframe con la URL de embed de YouTube:
+         https://www.youtube.com/embed/TU_VIDEO_ID
+       ═══════════════════════════════════════════════════════════ -->
+  <section id="editorialStage" class="editorial-stage" aria-label="Editorial Carnavalito">
+    <div class="editorial-wrapper">
+      <img class="editorial-img"
+           src="assets/editorial.svg"
+           alt="Editorial Carnavalito"
+           draggable="false"
+           loading="lazy"
+           decoding="async">
+
+      <!-- VIDEO 1 — César Villota
+           Cambia src="" por: https://www.youtube.com/embed/ID_DEL_VIDEO -->
+      <div class="editorial-video-slot" id="editorialVideo1">
+        <iframe class="editorial-iframe"
+                src="https://www.youtube.com/embed/xnYgQ_868JM"
+                title="Video César Villota"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"></iframe>
+      </div>
+
+      <!-- VIDEO 2 — Mariana Montaño
+           Cambia src="" por: https://www.youtube.com/embed/ID_DEL_VIDEO -->
+      <div class="editorial-video-slot" id="editorialVideo2">
+        <iframe class="editorial-iframe"
+                src="https://www.youtube.com/embed/jkhZkBw5deE"
+                title="Video Mariana Montaño"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"></iframe>
+      </div>
+
+      <!-- VIDEO 3 — Óscar Fernando Ruano
+           Cambia src="" por: https://www.youtube.com/embed/ID_DEL_VIDEO -->
+      <div class="editorial-video-slot" id="editorialVideo3">
+        <iframe class="editorial-iframe"
+                src="https://www.youtube.com/embed/nugoSIazssI?t=8s"
+                title="Video Óscar Fernando Ruano"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+  <!-- ═══════════════════════════════════════════ fin sección editorial -->
+
   <div id="proposalMobileSheet" class="proposal-mobile-sheet" aria-live="polite" aria-hidden="true"></div>
 
   <button id="backToTop" class="back-to-top" type="button" aria-label="Volver al inicio">↑</button>
@@ -28,7 +85,7 @@
     <div class="source-backdrop" data-close-modal></div>
     <section class="source-card" role="dialog" aria-modal="true" aria-describedby="sourceText">
       <button class="source-close" type="button" aria-label="Cerrar" data-close-modal>×</button>
-      <p id="sourceText"></p>
+      <div id="sourceContent" class="source-content"><p id="sourceText"></p></div>
     </section>
   </div>
 
